@@ -6,10 +6,10 @@ Towerclimber
 Requirements
 ------------
 ### 3rd-party libraries
-    * [Easylogging++][2]
-    * [JSON++][3]
-    * [lodePNG][4]
-    * [pugixml][5]
+  * [Easylogging++][2]
+  * [JSON++][3]
+  * [lodePNG][4]
+  * [pugixml][5]
 
 [1]: http://www.towerclimber.com "Towerclimber"
 [2]: https://github.com/easylogging/easyloggingpp "Easylogging++"
