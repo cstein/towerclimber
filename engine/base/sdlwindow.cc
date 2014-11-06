@@ -1,9 +1,13 @@
 #include "sdlwindow.h"
 
-#include <iostream>
+#include "easyloggingpp/src/easylogging++.h"
 
 SDLWindow::SDLWindow() {
+    el::Logger* SDLWindowLogger = el::Loggers::getLogger("SDLWindow");
+}
 
+SDLWindow::~SDLWindow() {
+    el::Loggers::unregisterLogger("SDLWindow");
 }
 
 void SDLWindow::Start() {
@@ -14,14 +18,18 @@ void SDLWindow::Start(int width, int height) {
     _width = width;
     _height = height;
 
+    CLOG(INFO, "SDLWindow") << "Creating window. W = " << width << " H = " << height;
+
     SDL_Init( SDL_INIT_VIDEO );
     window = SDL_CreateWindow( "GAME", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
     if ( window != NULL ) {
         screen = SDL_GetWindowSurface( window );
         if ( screen == NULL ) {
-            std::cout << "ERROR" << std::endl;
+            CLOG(ERROR, "SDLWindow") << "Could not create SDL_Surface.";
             Stop();
         }
+    } else {
+        CLOG(ERROR, "SDLWindow") << "Could not create SDL_Window.";
     }
 }
 

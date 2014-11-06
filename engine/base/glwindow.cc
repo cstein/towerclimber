@@ -1,6 +1,13 @@
 #include "glwindow.h"
 
+#include "easyloggingpp/src/easylogging++.h"
+
 GLWindow::GLWindow() {
+    el::Logger* SDLWindowLogger = el::Loggers::getLogger("GLWindow");
+}
+
+GLWindow::~GLWindow() {
+    el::Loggers::unregisterLogger("GLWindow");
 }
 
 void GLWindow::Start() {
@@ -10,6 +17,7 @@ void GLWindow::Start(int width, int height) {
     _width = width;
     _height = height;
 
+    CLOG(INFO, "GLWindow") << "Creating window. W = " << width << " H = " << height;
     SDL_Init( SDL_INIT_VIDEO );
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
