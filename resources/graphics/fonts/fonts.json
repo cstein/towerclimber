@@ -1,0 +1,13 @@
+{
+    "fonts": ["Ubuntu Mono", "Liberation Mono"],
+    "Ubuntu Mono": {
+        "size": 20,
+        "weight": "bold",
+        "filename": "ubuntu_mono_bold_20"
+    },
+    "Liberation Mono": {
+        "size": 10,
+        "weight": "regular",
+        "filename": "liberation_mono_regular_10"
+    }
+}
