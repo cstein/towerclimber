@@ -13,7 +13,7 @@
 class FontManager: public Manager {
 public:
     FontManager();
-    virtual ~FontManager();
+    ~FontManager();
     virtual void Start();
     virtual void Stop();
 private:

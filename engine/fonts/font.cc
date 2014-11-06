@@ -33,6 +33,7 @@ bool Font::LoadXML() {
     CLOG(INFO, "Font") << "Loading '" << _settingsfilename << "'.";
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(_settingsfilename.c_str());
+
     if (result) {
         pugi::xml_node font_node = doc.child("Font");
         for( pugi::xml_node char_node = font_node.child("Char");

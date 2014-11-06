@@ -14,6 +14,7 @@
 class Controls : public Manager {
 public:
     Controls();
+    ~Controls();
     virtual void Start();
     virtual void Stop();
     void Update(Scene* scene);

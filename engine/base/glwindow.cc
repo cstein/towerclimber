@@ -7,6 +7,7 @@ GLWindow::GLWindow() {
 }
 
 GLWindow::~GLWindow() {
+    CLOG(INFO, "GLWindow") << "Bye.";
     el::Loggers::unregisterLogger("GLWindow");
 }
 

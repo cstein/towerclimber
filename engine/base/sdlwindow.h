@@ -8,7 +8,7 @@
 class SDLWindow: public Manager {
 public:
     SDLWindow();
-    virtual ~SDLWindow();
+    ~SDLWindow();
     virtual void Start();
     virtual void Start(int width, int height);
     virtual void Stop();

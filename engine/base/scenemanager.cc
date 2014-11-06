@@ -9,6 +9,9 @@
 SceneManager::SceneManager() {
 }
 
+SceneManager::~SceneManager() {
+}
+
 Scene* SceneManager::GetActive() {
     return nullptr;
 }

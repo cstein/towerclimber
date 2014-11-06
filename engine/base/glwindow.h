@@ -9,7 +9,7 @@
 class GLWindow : public SDLWindow {
 public:
     GLWindow();
-    virtual ~GLWindow();
+    ~GLWindow();
     virtual void Start();
     virtual void Start(int width, int height);
     virtual void Stop();

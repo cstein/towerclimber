@@ -7,6 +7,7 @@ SDLWindow::SDLWindow() {
 }
 
 SDLWindow::~SDLWindow() {
+    CLOG(INFO, "SDLWindow") << "Bye.";
     el::Loggers::unregisterLogger("SDLWindow");
 }
 

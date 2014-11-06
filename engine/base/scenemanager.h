@@ -13,6 +13,7 @@
 class SceneManager : public Manager {
 public:
     SceneManager();
+    ~SceneManager();
     virtual void Start();
     virtual void Stop();
     Scene* GetActive();
