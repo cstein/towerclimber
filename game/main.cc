@@ -10,7 +10,7 @@ _INITIALIZE_EASYLOGGINGPP
 int main() {
     bool running = true;
 
-    SDLWindow* window = new SDLWindow();
+    GLWindow* window = new GLWindow();
     window->Start(800, 600);
 
     // start engine subsystems
