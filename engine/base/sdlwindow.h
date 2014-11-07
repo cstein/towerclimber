@@ -20,7 +20,7 @@ protected:
     int _height;
     SDL_Window* window;
 private:
-    SDL_Surface* screen;
+    SDL_Renderer* renderer;
 };
 
 #endif
