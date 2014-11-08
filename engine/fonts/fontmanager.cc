@@ -50,9 +50,8 @@ void FontManager::Start() {
         } else {
              CLOG(ERROR, "FontManager") << "Could not parse .json file." << std::endl;
         }
+        fontconf.close();
     }
-
-    fontconf.close();
 }
 
 void FontManager::Stop() {
