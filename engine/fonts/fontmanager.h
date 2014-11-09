@@ -16,6 +16,7 @@ public:
     ~FontManager();
     virtual void Start();
     virtual void Stop();
+    Font* Get( std::string fontname );
 private:
     jsonxx::Object _configuration;
     std::map<std::string, Font> _fonts;

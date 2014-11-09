@@ -27,6 +27,9 @@ public:
 
     // Loads the XML and PNG data into the font.
     bool LoadTextureAtlas();
+
+    CharacterRect* GetCharRect(std::string character);
+    unsigned int GetSize();
 private:
     std::string _settingsfilename;
     std::string _imagefilename;

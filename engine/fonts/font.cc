@@ -73,3 +73,17 @@ bool Font::LoadPNG() {
     }
     return true;
 }
+
+unsigned int Font::GetSize() {
+    return _size;
+}
+
+CharacterRect* Font::GetCharRect(std::string character) {
+    std::map<std::string, CharacterRect>::iterator it = _charmap.find( character );
+    if (it != _charmap.end()) {
+        return &it->second;
+    } else {
+        CLOG(ERROR, "Font") << "Char '" << character << "' not found.";
+        return nullptr;
+    }
+}

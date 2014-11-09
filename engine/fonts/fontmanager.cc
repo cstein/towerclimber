@@ -56,3 +56,13 @@ void FontManager::Start() {
 
 void FontManager::Stop() {
 }
+
+Font* FontManager::Get(std::string fontname) {
+    std::map<std::string, Font>::iterator it = _fonts.find( fontname );
+    if (it != _fonts.end()) {
+        return &it->second;
+    } else {
+        CLOG(ERROR, "FontManager") << "Font '" << fontname << "' not found.";
+        return nullptr;
+    }
+}
