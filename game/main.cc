@@ -11,19 +11,8 @@
 _INITIALIZE_EASYLOGGINGPP
 
 struct FontVert {
-    float _x;
-    float _y;
-    FontVert():
-        _x(0.0f),
-        _y(0.0f) {
-    }
-    FontVert(float x, float y) {
-        _x = x;
-        _y = y;
-    }
-    void print() {
-        LOG(INFO) << "VERTEX: x, y = " << _x << " " << _y;
-    }
+    float x;
+    float y;
 };
 
 struct FontQuad {
@@ -31,13 +20,6 @@ struct FontQuad {
     FontVert bl;
     FontVert br;
     FontVert tr;
-
-    void print() {
-        tl.print();
-        bl.print();
-        br.print();
-        tr.print();
-    }
 };
 
 int main() {
@@ -62,13 +44,14 @@ int main() {
     fontmanager->Start();
 
     // attempt to build quads
-    std::string quad = "Casper!";
+    std::string quad = "CasperSteinmann!";
     Font* f = fontmanager->Get("Ubuntu Mono");
     LOG(INFO) << "loaded font size: " << f->GetSize();
 
     float x, y;
-    x = 0.0f;
-    y = 0.0f;
+    x = 50.0f;
+    y = 100.0f;
+    std::vector<FontVert> vertices;
     for(std::string::iterator it = quad.begin(); it < quad.end(); it++) {
         std::stringstream ss;
         std::string c;
@@ -78,20 +61,66 @@ int main() {
         // lets build a quad
         LOG(INFO) << "character '" << *it << "' rect: x=" << r->x << " y=" << r->y << " w=" << r->w << " h=" << r->h << " Qx=" << x;
         FontQuad q = FontQuad();
-        q.tl = FontVert( x, y );
-        q.bl = FontVert( x, y + (float)r->h );
-        q.br = FontVert( x + (float)r->w, y + (float)r->h );
-        q.tr = FontVert( x + (float)r->w, y );
-        q.print();
+
+        // 1 quad = 2 triangles = 6 vertices
+        //
+        // triangles are right-wound
+        // TL -> BL -> BR
+        vertices.push_back( FontVert() );
+        vertices.back().x = x;
+        vertices.back().y = y;
+
+        vertices.push_back( FontVert() );
+        vertices.back().x = x;
+        vertices.back().y = y + (float)r->h;
+
+        vertices.push_back( FontVert() );
+        vertices.back().x = x + (float)r->w;
+        vertices.back().y = y + (float)r->h;
+
+        // TL -> BR -> TR
+        vertices.push_back( FontVert() );
+        vertices.back().x = x;
+        vertices.back().y = y;
+
+        vertices.push_back( FontVert() );
+        vertices.back().x = x + (float)r->w;
+        vertices.back().y = y + (float)r->h;
+
+        vertices.push_back( FontVert() );
+        vertices.back().x = x + (float)r->w;
+        vertices.back().y = y;
+
         x = x + (float)r->w;
     }
+
+    LOG(INFO) << "size: " << vertices.size();
+
+    GLuint vbo[1];
+    glGenBuffers(1, vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof( FontVert ), &vertices[0], GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(0);
+
+    glUseProgram( sm->GetProgram("font-shader" ) );
+    Shader* s = sm->Get("font-shader");
+    s->SetProjectionMatrix( window->GetProjection() );
 
     while(running) {
         controls->Update( scenemanager->GetActive() );
         running = !controls->IsExitState();
         //renderer->RenderScene( scenemanager->GetActive() );
+        glClearColor( 0.39, 0.58, 0.93, 1.0 );
+        glClear(GL_COLOR_BUFFER_BIT);
+        glDrawArrays(GL_TRIANGLES, 0, vertices.size());
         window->Swap();
     }
+
+    glUseProgram( 0 );
+
+    glDisableVertexAttribArray(0);
+    glDeleteBuffers(1, vbo);
 
     fontmanager->Stop();
     controls->Stop();

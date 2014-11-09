@@ -43,6 +43,7 @@ bool Shader::Load() {
                     Unload();
                     return false;
                 }
+                SetupShaderLocations();
             } else {
                 CLOG(ERROR, "Shader") << "Could not fix fragment shader." << _fragmentshaderfilename;
                 Unload();
@@ -76,6 +77,10 @@ void Shader::Unload() {
 
     glDeleteProgram( _program );
     _program = 0;
+}
+
+void Shader::SetProjectionMatrix( Eigen::Matrix4f P ) {
+    glUniformMatrix4fv( _uniformprojectionmatrix, 1, GL_FALSE, P.data() );
 }
 
 void Shader::SetShaderName( std::string name ) {
@@ -129,7 +134,7 @@ void Shader::PrintShaderCompileInfo( GLuint shader_index ) {
 
     glGetShaderInfoLog( shader_index, maxlength, &length, log );
     std::string c( log );
-    LOG(ERROR) << c;
+    CLOG(ERROR, "Shader") << c;
 }
 
 void Shader::PrintProgramLinkInfo( GLuint program_index ) {
@@ -139,5 +144,21 @@ void Shader::PrintProgramLinkInfo( GLuint program_index ) {
 
     glGetProgramInfoLog( program_index, maxlength, &length, log );
     std::string c( log );
-    LOG(ERROR) << c;
+    CLOG(ERROR, "Shader") << c;
+}
+
+void Shader::SetupShaderLocations() {
+    _position = glGetAttribLocation( _program, "position" );
+    if ( _position == -1 ) {
+        CLOG(WARNING, "Shader") << "Input variable 'position' not found in '" << _name << "'.";
+    } else {
+        CLOG(INFO, "Shader") << "Input variable 'position' in '" << _name << "' has address: " << _position;
+    }
+
+    _uniformprojectionmatrix = glGetUniformLocation( _program, "projection" );
+    if ( _uniformprojectionmatrix == -1 ) {
+        CLOG(WARNING, "Shader") << "Uniform variable 'projection' not found in '" << _name << "'.";
+    } else {
+        CLOG(INFO, "Shader") << "Uniform variable 'projection' in '" << _name << "' has address: " << _uniformprojectionmatrix;
+    }
 }
