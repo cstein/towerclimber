@@ -4,6 +4,7 @@
 #include "fonts/fontmanager.h"
 
 #include "renderer/shader.h"
+#include "renderer/shadermanager.h"
 
 #include "easyloggingpp/src/easylogging++.h"
 
@@ -15,9 +16,9 @@ int main() {
     GLWindow* window = new GLWindow();
     window->Start(800, 600);
 
-    Shader s = Shader();
-    LOG(INFO) << "Shader loaded: " << s.Load("resources/shaders/font");
-    LOG(INFO) << "  SHADER:" << s.Get();
+    ShaderManager* sm = new ShaderManager();
+    sm->Start();
+
 
     // start engine subsystems
     // SceneManager manages all scenes (aka game screens, i.e. menus, levels etc)
@@ -36,10 +37,10 @@ int main() {
         window->Swap();
     }
 
-    s.Unload();
     fontmanager->Stop();
     controls->Stop();
     scenemanager->Stop();
+    sm->Stop();
     window->Stop();
 
 }

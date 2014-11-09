@@ -6,22 +6,31 @@
 #include "easyloggingpp/src/easylogging++.h"
 
 Shader::Shader() {
+    _basepath = "resources/shaders/";
 }
 
 Shader::~Shader() {
 }
 
-bool Shader::Load(std::string filename) {
-    std::string vertexfilename = filename + ".vert";
-    std::string fragmentfilename = filename + ".frag";
+bool Shader::Load() {
+
+    if (_vertexshaderfilename.length() == 0 ) {
+        CLOG(ERROR, "Shader") << "Vertex shader filename not set.";
+        return false;
+    }
+
+    if (_fragmentshaderfilename.length() == 0) {
+        CLOG(ERROR, "Shader") << "Fragment shader filename not set.";
+        return false;
+    }
 
     int params;
 
     _program = glCreateProgram();
     if ( _program != 0 ) {
-        _vertexshader = CreateShader(vertexfilename, GL_VERTEX_SHADER);
+        _vertexshader = CreateShader(_vertexshaderfilename, GL_VERTEX_SHADER);
         if ( _vertexshader != 0 ) {
-            _fragmentshader = CreateShader(fragmentfilename, GL_FRAGMENT_SHADER);
+            _fragmentshader = CreateShader(_fragmentshaderfilename, GL_FRAGMENT_SHADER);
             if ( _fragmentshader != 0 ) {
                 glAttachShader( _program, _vertexshader );
                 glAttachShader( _program, _fragmentshader );
@@ -30,21 +39,22 @@ bool Shader::Load(std::string filename) {
                 glGetProgramiv( _program, GL_LINK_STATUS, &params );
                 if ( params != GL_TRUE ) {
                     PrintProgramLinkInfo( _program );
-                    LOG(ERROR) << "Could not link program. Filename = " << filename;
+                    CLOG(ERROR, "Shader") << "Could not link shader program: '" << _name <<"'.";
                     Unload();
                     return false;
                 }
             } else {
-                LOG(ERROR) << "Could not fix fragment shader." << filename;
+                CLOG(ERROR, "Shader") << "Could not fix fragment shader." << _fragmentshaderfilename;
                 Unload();
                 return false;
             }
         } else {
-            LOG(ERROR) << "Could not fix vertex shader." << filename;
+            CLOG(ERROR, "Shader") << "Could not fix vertex shader." << _vertexshaderfilename;
             Unload();
             return false;
         }
     }
+    CLOG(INFO, "Shader") << "Succesfully compiled and linked shader program: '" << _name << "'.";
     return true;
 }
 
@@ -68,6 +78,18 @@ void Shader::Unload() {
     _program = 0;
 }
 
+void Shader::SetShaderName( std::string name ) {
+    _name = name;
+}
+
+void Shader::SetVertexShaderFilename( std::string filename ) {
+    _vertexshaderfilename = _basepath + filename;
+}
+
+void Shader::SetFragmentShaderFilename( std::string filename ) {
+    _fragmentshaderfilename = _basepath + filename;
+}
+
 GLuint Shader::CreateShader(std::string filename, GLenum shaderType) {
     GLuint _shader;
     int params;
@@ -85,7 +107,7 @@ GLuint Shader::CreateShader(std::string filename, GLenum shaderType) {
 
         params = -1;
         glGetShaderiv( _shader, GL_COMPILE_STATUS, &params );
-        LOG(INFO) << "GL_TRUE: " << GL_TRUE << " GL_FALSE: " << GL_FALSE << " PARAMS: " << params;
+        //LOG(INFO) << "GL_TRUE: " << GL_TRUE << " GL_FALSE: " << GL_FALSE << " PARAMS: " << params;
         if (params != GL_TRUE) {
             PrintShaderCompileInfo( _shader );
             glDeleteShader( _shader );
@@ -93,7 +115,7 @@ GLuint Shader::CreateShader(std::string filename, GLenum shaderType) {
         }
         shaderfile.close();
     } else {
-        LOG(ERROR) << "Shader '" << filename << "' not found.";
+        CLOG(ERROR, "Shader") << "Shader '" << filename << "' not found.";
         glDeleteShader( _shader );
         _shader = 0;
     }
