@@ -36,6 +36,7 @@ int main() {
         window->Swap();
     }
 
+    s.Unload();
     fontmanager->Stop();
     controls->Stop();
     scenemanager->Stop();

@@ -9,6 +9,9 @@ public:
     Shader();
     ~Shader();
     bool Load(std::string filename);
+    void Unload();
+
+    // The shader ID for the program.
     const inline GLuint Get() { return _program; }
 private:
     GLuint _program;
