@@ -4,10 +4,12 @@ project(engine)
 
 include(base/CMakeLists.txt)
 include(fonts/CMakeLists.txt)
+include(renderer/CMakeLists.txt)
 
 set(ENGINE_SRC
     ${BASE_SRC}
     ${FONTS_SRC}
+    ${RENDERER_SRC}
     )
 
 add_library(engine

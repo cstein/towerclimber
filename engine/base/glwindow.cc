@@ -29,6 +29,9 @@ void GLWindow::Start(int width, int height) {
     if ( window != NULL ) {
         context = SDL_GL_CreateContext( window );
 
+        glewExperimental = GL_TRUE;
+        glewInit();
+
         // setup projection matrix
         // matrix is taken from wikipedia
         // http://en.wikipedia.org/wiki/Orthographic_projection

@@ -3,6 +3,9 @@
 #include "base/scenemanager.h"
 #include "fonts/fontmanager.h"
 
+#include "renderer/shader.h"
+#include "renderer/shadermanager.h"
+
 #include "easyloggingpp/src/easylogging++.h"
 
 _INITIALIZE_EASYLOGGINGPP
@@ -12,6 +15,10 @@ int main() {
 
     GLWindow* window = new GLWindow();
     window->Start(800, 600);
+
+    ShaderManager* sm = new ShaderManager();
+    sm->Start();
+
 
     // start engine subsystems
     // SceneManager manages all scenes (aka game screens, i.e. menus, levels etc)
@@ -33,6 +40,7 @@ int main() {
     fontmanager->Stop();
     controls->Stop();
     scenemanager->Stop();
+    sm->Stop();
     window->Stop();
 
 }

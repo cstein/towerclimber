@@ -13,6 +13,8 @@ INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 include_directories(${SDL2_INCLUDE_DIRS})
 
+find_package(GLEW REQUIRED)
+
 # specific source directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/engine)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rd-party)
