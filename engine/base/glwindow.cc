@@ -7,7 +7,7 @@ GLWindow::GLWindow() {
 }
 
 GLWindow::~GLWindow() {
-    CLOG(INFO, "GLWindow") << "Bye.";
+    //CLOG(INFO, "GLWindow") << "Bye.";
     el::Loggers::unregisterLogger("GLWindow");
 }
 
@@ -18,7 +18,7 @@ void GLWindow::Start(int width, int height) {
     _width = width;
     _height = height;
 
-    CLOG(INFO, "GLWindow") << "Creating window. W = " << width << " H = " << height;
+    //CLOG(INFO, "GLWindow") << "Creating window. W = " << width << " H = " << height;
     SDL_Init( SDL_INIT_VIDEO );
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
@@ -50,7 +50,7 @@ void GLWindow::Start(int width, int height) {
         _projectionmatrix(1,3) = -1.0f;
         _projectionmatrix(2,3) =  0.0f;
 
-        CLOG(INFO, "GLWindow") << "Projection\n" << _projectionmatrix;
+        //CLOG(INFO, "GLWindow") << "Projection\n" << _projectionmatrix;
     }
 }
 

@@ -7,7 +7,7 @@ SDLWindow::SDLWindow() {
 }
 
 SDLWindow::~SDLWindow() {
-    CLOG(INFO, "SDLWindow") << "Bye.";
+    //CLOG(INFO, "SDLWindow") << "Bye.";
     el::Loggers::unregisterLogger("SDLWindow");
 }
 
@@ -19,7 +19,7 @@ void SDLWindow::Start(int width, int height) {
     _width = width;
     _height = height;
 
-    CLOG(INFO, "SDLWindow") << "Creating window. W = " << width << " H = " << height;
+    //CLOG(INFO, "SDLWindow") << "Creating window. W = " << width << " H = " << height;
 
     SDL_Init( SDL_INIT_VIDEO );
     window = SDL_CreateWindow( "GAME", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);

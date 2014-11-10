@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 project(towerclimber)
+option(ENABLE_TESTS "Build all tests." OFF)
 
 include(cmake/BuildHelpers.CMakeLists.txt)
 
@@ -22,6 +23,12 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rd-party)
 add_subdirectory(3rd-party)
 add_subdirectory(engine)
 add_subdirectory(game)
+
+if(ENABLE_TEST)
+    add_definitions(-DENABLE_TEST)
+    enable_testing()
+    add_subdirectory(test)
+endif(ENABLE_TEST)
 
 pre_build(game
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/resources
