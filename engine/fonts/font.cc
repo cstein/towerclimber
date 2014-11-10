@@ -27,6 +27,7 @@ void Font::SetFilename(std::string filename) {
 bool Font::Load() {
     if ( LoadXML() ) {
         if ( LoadPNG() ) {
+            CreateUVMap();
             return CreateTexture();
         };
     }
@@ -114,4 +115,26 @@ bool Font::BindTexture() {
 bool Font::UnbindTexture() {
     glBindTexture(GL_TEXTURE_2D, 0);
     return true;
+}
+
+void Font::CreateUVMap() {
+    // the Font UV map is actually rather elegant. Each char is defined
+    // in a rectangle which is a fraction of the total texture.
+    float width = (float)_imagewidth;
+    float height = (float)_imageheight;
+    float x, y, w, h;
+    std::map<std::string, CharacterRect>::iterator it;
+    for( it = _charmap.begin(); it != _charmap.end(); it++ ) {
+        CharacterRect* cr = &it->second;
+        x = (float)cr->x / width;
+        y = (float)cr->y / height;
+        w = ((float)cr->x + (float)cr->w) / width;
+        h = ((float)cr->y + (float)cr->h) / height;
+        _uvmap[ it->first ] = CharacterUV();
+        _uvmap[ it->first ].u = x;
+        _uvmap[ it->first ].v = y;
+        _uvmap[ it->first ].s = w;
+        _uvmap[ it->first ].t = h;
+        //CLOG(INFO, "Font") << "CMAP: '" << it->first << "' " << x << ", " << y << ", " << w << ", " << h;
+    }
 }

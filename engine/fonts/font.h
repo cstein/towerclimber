@@ -16,6 +16,13 @@ struct CharacterRect {
     int oy;
 };
 
+struct CharacterUV {
+    float u;
+    float v;
+    float s;
+    float t;
+};
+
 /*
  * The Font class holds information for a font, such as size,
  * weight, texture atlas and UV coordinates for each character
@@ -31,6 +38,7 @@ public:
     bool Load();
 
     CharacterRect* GetCharRect(std::string character);
+    CharacterUV* GetCharUV(std::string character);
     unsigned int GetSize();
     bool BindTexture();
     bool UnbindTexture();
@@ -43,6 +51,7 @@ private:
 
     // contains the character map, i.e. uv mapping in texture coordinates
     std::map<std::string, CharacterRect> _charmap;
+    std::map<std::string, CharacterUV> _uvmap;
 
     unsigned int _imagewidth;
     unsigned int _imageheight;
@@ -56,6 +65,8 @@ private:
     bool LoadPNG();
     // Creates the OpenGL Texture
     bool CreateTexture();
+    // Creates the UV map
+    void CreateUVMap();
 };
 
 #endif
