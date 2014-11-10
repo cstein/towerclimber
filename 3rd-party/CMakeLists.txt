@@ -5,4 +5,4 @@ project(3rd-party)
 add_subdirectory(jsonxx)
 add_subdirectory(pugixml)
 add_subdirectory(lodepng)
-
+add_subdirectory(gtest-1.7.0)
