@@ -39,12 +39,12 @@ void GLWindow::Start(int width, int height) {
         // right = width
         // top = height
         // bottom = 0
-        // near = -1
-        // far = 1
+        // near =  1
+        // far = -1
         _projectionmatrix = Eigen::Matrix4f::Zero();
         _projectionmatrix(0,0) =  2.0f / (float)width;
         _projectionmatrix(1,1) =  2.0f / (float)height;
-        _projectionmatrix(2,2) = -1.0f;
+        _projectionmatrix(2,2) =  1.0f;
         _projectionmatrix(3,3) =  1.0f;
         _projectionmatrix(0,3) = -1.0f;
         _projectionmatrix(1,3) = -1.0f;

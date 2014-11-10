@@ -39,7 +39,7 @@ void FontManager::Start() {
                     _fonts[fontname] = Font( );
                     _fonts[fontname].SetFilename( fname );
                     _fonts[fontname].SetSize( size );
-                    if (!_fonts[fontname].LoadTextureAtlas()) {
+                    if (!_fonts[fontname].Load()) {
                         CLOG(ERROR, "FontManager") << "Error loading font.";
                         _fonts.erase(fontname);
                     }

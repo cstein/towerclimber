@@ -9,6 +9,7 @@
 #include "pugixml/src/pugixml.hpp"
 
 Font::Font() {
+    _textureid = 0;
 }
 
 Font::~Font() {
@@ -23,9 +24,11 @@ void Font::SetFilename(std::string filename) {
     _imagefilename = "resources/graphics/fonts/" + filename + ".png";
 }
 
-bool Font::LoadTextureAtlas() {
+bool Font::Load() {
     if ( LoadXML() ) {
-        return LoadPNG();
+        if ( LoadPNG() ) {
+            return CreateTexture();
+        };
     }
     return false;
 }
@@ -45,17 +48,18 @@ bool Font::LoadXML() {
             std::string offset = char_node.attribute("offset").value();
 
             _charmap[character] = CharacterRect();
-            std::stringstream stream;
+            std::stringstream rectstream;
 
-            stream.str( rect );
-            stream >> _charmap[character].x;
-            stream >> _charmap[character].y;
-            stream >> _charmap[character].w;
-            stream >> _charmap[character].h;
+            rectstream.str( rect );
+            rectstream >> _charmap[character].x;
+            rectstream >> _charmap[character].y;
+            rectstream >> _charmap[character].w;
+            rectstream >> _charmap[character].h;
 
-            stream.str( offset );
-            stream >> _charmap[character].ox;
-            stream >> _charmap[character].oy;
+            std::stringstream offsetstream;
+            offsetstream.str( offset );
+            offsetstream >> _charmap[character].ox;
+            offsetstream >> _charmap[character].oy;
         }
     } else {
         CLOG(ERROR, "Font") << result.description();
@@ -86,4 +90,28 @@ CharacterRect* Font::GetCharRect(std::string character) {
         CLOG(ERROR, "Font") << "Char '" << character << "' not found.";
         return nullptr;
     }
+}
+
+bool Font::CreateTexture() {
+    glGenTextures(1, &_textureid);
+    glBindTexture(GL_TEXTURE_2D, _textureid);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _imagewidth, _imageheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, &_image[0]);
+    // unbind the texture for now
+    glBindTexture(GL_TEXTURE_2D, 0);
+    return true;
+}
+
+bool Font::BindTexture() {
+    if (_textureid != 0) {
+        glBindTexture(GL_TEXTURE_2D, _textureid);
+        return true;
+    } else {
+        CLOG(ERROR, "Font") << "Could not bind texture.";
+        return false;
+    }
+}
+
+bool Font::UnbindTexture() {
+    glBindTexture(GL_TEXTURE_2D, 0);
+    return true;
 }

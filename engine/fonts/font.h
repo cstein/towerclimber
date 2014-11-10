@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include <GL/glew.h>
+
 struct CharacterRect {
     int x;
     int y;
@@ -26,10 +28,12 @@ public:
     void SetFilename(std::string filename);
 
     // Loads the XML and PNG data into the font.
-    bool LoadTextureAtlas();
+    bool Load();
 
     CharacterRect* GetCharRect(std::string character);
     unsigned int GetSize();
+    bool BindTexture();
+    bool UnbindTexture();
 private:
     std::string _settingsfilename;
     std::string _imagefilename;
@@ -44,12 +48,14 @@ private:
     unsigned int _imageheight;
     std::vector<unsigned char> _image;
 
+    GLuint _textureid;
 
     // Loads the font .xml configuration file with character rectangles.
     bool LoadXML();
-
     // Loads the PNG image
     bool LoadPNG();
+    // Creates the OpenGL Texture
+    bool CreateTexture();
 };
 
 #endif
