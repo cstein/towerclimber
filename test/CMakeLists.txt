@@ -14,5 +14,16 @@ target_link_libraries(test_glwindow
     ${GLEW_LIBRARIES}
     gtest
     )
-
 add_test(glwindow test_glwindow)
+
+add_executable(test_sdlwindow test_sdlwindow.cc)
+target_link_libraries(test_sdlwindow
+    engine
+    jsonxx
+    lodepng
+    pugixml
+    ${SDL2_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    gtest
+    )
+add_test(sdlwindow test_sdlwindow)
