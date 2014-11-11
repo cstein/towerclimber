@@ -70,7 +70,6 @@ int main() {
         CharacterRect* r = f->GetCharRect( c );
         CharacterUV* u = f->GetCharUV( c );
         // lets build a quad
-        LOG(INFO) << "character '" << *it << "' rect: x=" << r->x << " y=" << r->y << " w=" << r->w << " h=" << r->h << " Ox,y=" << r->oy << ", " << r->ox;
         FontQuad q = FontQuad();
 
         // 1 quad = 2 triangles = 6 vertices
