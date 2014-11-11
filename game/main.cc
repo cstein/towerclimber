@@ -45,8 +45,8 @@ int main() {
 
     // attempt to build quads
     std::string quad("Welcome to my world.");
-    Font* f = fontmanager->Get("Ubuntu Mono");
-    //Font* f = fontmanager->Get("Liberation Mono");
+    //Font* f = fontmanager->Get("Ubuntu Mono");
+    Font* f = fontmanager->Get("Liberation Mono");
     LOG(INFO) << "loaded font size: " << f->GetSize();
 
     float ox, oy;

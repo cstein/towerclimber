@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Font family="Liberation Mono" style="Regular" size="10" height="15">
- <Char width="8" rect="1 11 2 2" code=" " offset="-1 11"/>
+ <Char width="8" rect="1 11 2 2" code=" " offset="6 11"/>
  <Char width="8" rect="4 2 4 11" code="!" offset="2 2"/>
  <Char width="8" rect="9 1 6 6" code="&quot;" offset="1 1"/>
  <Char width="8" rect="16 2 10 11" code="#" offset="-1 2"/>
