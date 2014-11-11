@@ -11,5 +11,6 @@ target_link_libraries(game
     lodepng
     pugixml
     ${SDL2_LIBRARIES}
-    ${GLEW_LIBRARIES})
+    ${GLEW_LIBRARIES}
+    -lGL)
 

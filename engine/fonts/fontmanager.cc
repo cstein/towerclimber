@@ -39,7 +39,7 @@ void FontManager::Start() {
                     _fonts[fontname] = Font( );
                     _fonts[fontname].SetFilename( fname );
                     _fonts[fontname].SetSize( size );
-                    if (!_fonts[fontname].LoadTextureAtlas()) {
+                    if (!_fonts[fontname].Load()) {
                         CLOG(ERROR, "FontManager") << "Error loading font.";
                         _fonts.erase(fontname);
                     }
@@ -55,4 +55,14 @@ void FontManager::Start() {
 }
 
 void FontManager::Stop() {
+}
+
+Font* FontManager::Get(std::string fontname) {
+    std::map<std::string, Font>::iterator it = _fonts.find( fontname );
+    if (it != _fonts.end()) {
+        return &it->second;
+    } else {
+        CLOG(ERROR, "FontManager") << "Font '" << fontname << "' not found.";
+        return nullptr;
+    }
 }

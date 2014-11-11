@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include <GL/glew.h>
+
 struct CharacterRect {
     int x;
     int y;
@@ -12,6 +14,13 @@ struct CharacterRect {
     int h;
     int ox; // offsets
     int oy;
+};
+
+struct CharacterUV {
+    float u;
+    float v;
+    float s;
+    float t;
 };
 
 /*
@@ -26,7 +35,13 @@ public:
     void SetFilename(std::string filename);
 
     // Loads the XML and PNG data into the font.
-    bool LoadTextureAtlas();
+    bool Load();
+
+    CharacterRect* GetCharRect(std::string character);
+    CharacterUV* GetCharUV(std::string character);
+    unsigned int GetSize();
+    bool BindTexture();
+    bool UnbindTexture();
 private:
     std::string _settingsfilename;
     std::string _imagefilename;
@@ -36,17 +51,22 @@ private:
 
     // contains the character map, i.e. uv mapping in texture coordinates
     std::map<std::string, CharacterRect> _charmap;
+    std::map<std::string, CharacterUV> _uvmap;
 
     unsigned int _imagewidth;
     unsigned int _imageheight;
     std::vector<unsigned char> _image;
 
+    GLuint _textureid;
 
     // Loads the font .xml configuration file with character rectangles.
     bool LoadXML();
-
     // Loads the PNG image
     bool LoadPNG();
+    // Creates the OpenGL Texture
+    bool CreateTexture();
+    // Creates the UV map
+    void CreateUVMap();
 };
 
 #endif

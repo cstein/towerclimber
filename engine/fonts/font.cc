@@ -9,6 +9,7 @@
 #include "pugixml/src/pugixml.hpp"
 
 Font::Font() {
+    _textureid = 0;
 }
 
 Font::~Font() {
@@ -23,9 +24,12 @@ void Font::SetFilename(std::string filename) {
     _imagefilename = "resources/graphics/fonts/" + filename + ".png";
 }
 
-bool Font::LoadTextureAtlas() {
+bool Font::Load() {
     if ( LoadXML() ) {
-        return LoadPNG();
+        if ( LoadPNG() ) {
+            CreateUVMap();
+            return CreateTexture();
+        };
     }
     return false;
 }
@@ -45,17 +49,18 @@ bool Font::LoadXML() {
             std::string offset = char_node.attribute("offset").value();
 
             _charmap[character] = CharacterRect();
-            std::stringstream stream;
+            std::stringstream rectstream;
 
-            stream.str( rect );
-            stream >> _charmap[character].x;
-            stream >> _charmap[character].y;
-            stream >> _charmap[character].w;
-            stream >> _charmap[character].h;
+            rectstream.str( rect );
+            rectstream >> _charmap[character].x;
+            rectstream >> _charmap[character].y;
+            rectstream >> _charmap[character].w;
+            rectstream >> _charmap[character].h;
 
-            stream.str( offset );
-            stream >> _charmap[character].ox;
-            stream >> _charmap[character].oy;
+            std::stringstream offsetstream;
+            offsetstream.str( offset );
+            offsetstream >> _charmap[character].ox;
+            offsetstream >> _charmap[character].oy;
         }
     } else {
         CLOG(ERROR, "Font") << result.description();
@@ -72,4 +77,76 @@ bool Font::LoadPNG() {
         return false;
     }
     return true;
+}
+
+unsigned int Font::GetSize() {
+    return _size;
+}
+
+CharacterRect* Font::GetCharRect(std::string character) {
+    std::map<std::string, CharacterRect>::iterator it = _charmap.find( character );
+    if (it != _charmap.end()) {
+        return &it->second;
+    } else {
+        CLOG(ERROR, "Font") << "Rect for character '" << character << "' not found.";
+        return nullptr;
+    }
+}
+
+bool Font::CreateTexture() {
+    glGenTextures(1, &_textureid);
+    glBindTexture(GL_TEXTURE_2D, _textureid);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _imagewidth, _imageheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, &_image[0]);
+    // unbind the texture for now
+    glBindTexture(GL_TEXTURE_2D, 0);
+    return true;
+}
+
+bool Font::BindTexture() {
+    if (_textureid != 0) {
+        glBindTexture(GL_TEXTURE_2D, _textureid);
+        return true;
+    } else {
+        CLOG(ERROR, "Font") << "Could not bind texture.";
+        return false;
+    }
+}
+
+bool Font::UnbindTexture() {
+    glBindTexture(GL_TEXTURE_2D, 0);
+    return true;
+}
+
+void Font::CreateUVMap() {
+    // the Font UV map is actually rather elegant. Each char is defined
+    // in a rectangle which is a fraction of the total texture.
+    float width = (float)_imagewidth;
+    float height = (float)_imageheight;
+    float x, y, w, h;
+    std::map<std::string, CharacterRect>::iterator it;
+    for( it = _charmap.begin(); it != _charmap.end(); it++ ) {
+        CharacterRect* cr = &it->second;
+        x = (float)cr->x / width;
+        y = (float)cr->y / height;
+        w = ((float)cr->x + (float)cr->w) / width;
+        h = ((float)cr->y + (float)cr->h) / height;
+        _uvmap[ it->first ] = CharacterUV();
+        _uvmap[ it->first ].u = x;
+        _uvmap[ it->first ].v = y;
+        _uvmap[ it->first ].s = w;
+        _uvmap[ it->first ].t = h;
+        //CLOG(INFO, "Font") << "CMAP: '" << it->first << "' " << x << ", " << y << ", " << w << ", " << h;
+    }
+}
+
+CharacterUV* Font::GetCharUV(std::string character) {
+    std::map<std::string, CharacterUV>::iterator it = _uvmap.find( character );
+    if (it != _uvmap.end()) {
+        return &it->second;
+    } else {
+        CLOG(ERROR, "Font") << "UV map for character '" << character << "' not found.";
+        return nullptr;
+    }
 }

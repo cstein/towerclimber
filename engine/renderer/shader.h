@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include <string>
 
+#include <Eigen/Core>
+
 class Shader {
 public:
     Shader();
@@ -17,6 +19,9 @@ public:
 
     // The shader ID for the program.
     const inline GLuint Get() { return _program; }
+
+    // Uniforms
+    void SetProjectionMatrix( Eigen::Matrix4f P );
 private:
     std::string _name;
     std::string _basepath;
@@ -29,6 +34,14 @@ private:
     GLuint CreateShader(std::string filename, GLenum type);
     void PrintShaderCompileInfo( GLuint shader_index );
     void PrintProgramLinkInfo( GLuint program_index );
+
+    void SetupShaderLocations();
+    // variables for vertexattribs
+    GLuint _position;
+    GLuint _texcoords;
+
+    // variables for uniforms
+    GLuint _uniformprojectionmatrix;
 };
 
 #endif
