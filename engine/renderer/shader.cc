@@ -155,6 +155,13 @@ void Shader::SetupShaderLocations() {
         CLOG(INFO, "Shader") << "Input variable 'position' in '" << _name << "' has address: " << _position;
     }
 
+    _texcoords = glGetAttribLocation( _program, "texcoords" );
+    if ( _texcoords == -1 ) {
+        CLOG(WARNING, "Shader") << "Input variable 'position' not found in '" << _name << "'.";
+    } else {
+        CLOG(INFO, "Shader") << "Input variable 'position' in '" << _name << "' has address: " << _texcoords;
+    }
+
     _uniformprojectionmatrix = glGetUniformLocation( _program, "projection" );
     if ( _uniformprojectionmatrix == -1 ) {
         CLOG(WARNING, "Shader") << "Uniform variable 'projection' not found in '" << _name << "'.";

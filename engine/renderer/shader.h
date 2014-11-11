@@ -38,6 +38,7 @@ private:
     void SetupShaderLocations();
     // variables for vertexattribs
     GLuint _position;
+    GLuint _texcoords;
 
     // variables for uniforms
     GLuint _uniformprojectionmatrix;

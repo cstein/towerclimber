@@ -88,7 +88,7 @@ CharacterRect* Font::GetCharRect(std::string character) {
     if (it != _charmap.end()) {
         return &it->second;
     } else {
-        CLOG(ERROR, "Font") << "Char '" << character << "' not found.";
+        CLOG(ERROR, "Font") << "Rect for character '" << character << "' not found.";
         return nullptr;
     }
 }
@@ -96,6 +96,8 @@ CharacterRect* Font::GetCharRect(std::string character) {
 bool Font::CreateTexture() {
     glGenTextures(1, &_textureid);
     glBindTexture(GL_TEXTURE_2D, _textureid);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _imagewidth, _imageheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, &_image[0]);
     // unbind the texture for now
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -136,5 +138,15 @@ void Font::CreateUVMap() {
         _uvmap[ it->first ].s = w;
         _uvmap[ it->first ].t = h;
         //CLOG(INFO, "Font") << "CMAP: '" << it->first << "' " << x << ", " << y << ", " << w << ", " << h;
+    }
+}
+
+CharacterUV* Font::GetCharUV(std::string character) {
+    std::map<std::string, CharacterUV>::iterator it = _uvmap.find( character );
+    if (it != _uvmap.end()) {
+        return &it->second;
+    } else {
+        CLOG(ERROR, "Font") << "UV map for character '" << character << "' not found.";
+        return nullptr;
     }
 }
