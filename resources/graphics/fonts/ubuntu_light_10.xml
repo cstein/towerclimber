@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Font height="16" style="Light" size="10" family="Ubuntu">
+ <Char width="4" offset="-1 12" rect="1 12 2 2" code=" "/>
+ <Char width="4" offset="-1 3" rect="4 3 5 11" code="!"/>
+ <Char width="6" offset="0 2" rect="10 2 5 5" code="&quot;"/>
+ <Char width="10" offset="0 3" rect="16 3 9 11" code="#"/>
+ <Char width="8" offset="0 1" rect="26 1 7 15" code="$"/>
+ <Char width="13" offset="0 3" rect="34 3 12 11" code="%"/>
+ <Char width="9" offset="0 3" rect="47 3 8 11" code="&amp;"/>
+ <Char width="4" offset="0 2" rect="56 2 3 5" code="'">
+  <Kerning id="J" advance="-1"/>
+ </Char>
+ <Char width="5" offset="0 2" rect="60 2 5 14" code="("/>
+ <Char width="5" offset="-1 2" rect="66 2 5 14" code=")"/>
+ <Char width="7" offset="0 3" rect="72 3 7 7" code="*">
+  <Kerning id="J" advance="-1"/>
+ </Char>
+ <Char width="8" offset="-1 5" rect="80 5 9 9" code="+"/>
+ <Char width="4" offset="-1 11" rect="90 11 4 5" code=","/>
+ <Char width="6" offset="0 8" rect="95 8 5 3" code="-"/>
+ <Char width="4" offset="0 11" rect="101 11 3 3" code="."/>
+ <Char width="6" offset="-1 2" rect="105 2 7 14" code="/"/>
+ <Char width="8" offset="0 3" rect="113 3 7 11" code="0"/>
+ <Char width="8" offset="0 3" rect="1 17 6 11" code="1"/>
+ <Char width="8" offset="0 3" rect="8 17 7 11" code="2"/>
+ <Char width="8" offset="0 3" rect="16 17 7 11" code="3"/>
+ <Char width="8" offset="0 3" rect="24 17 7 11" code="4"/>
+ <Char width="8" offset="0 3" rect="32 17 7 11" code="5"/>
+ <Char width="8" offset="0 3" rect="40 17 7 11" code="6"/>
+ <Char width="8" offset="0 3" rect="48 17 7 11" code="7"/>
+ <Char width="8" offset="0 3" rect="56 17 7 11" code="8"/>
+ <Char width="8" offset="0 3" rect="64 17 7 11" code="9"/>
+ <Char width="4" offset="0 6" rect="72 20 3 8" code=":"/>
+ <Char width="4" offset="-1 6" rect="76 20 4 10" code=";"/>
+ <Char width="8" offset="0 6" rect="81 20 8 7" code="&lt;"/>
+ <Char width="8" offset="0 6" rect="90 20 7 6" code="="/>
+ <Char width="8" offset="-1 6" rect="98 20 8 7" code=">"/>
+ <Char width="6" offset="-1 3" rect="107 17 6 11" code="?"/>
+ <Char width="13" offset="0 3" rect="114 17 12 13" code="@"/>
+ <Char width="10" offset="-1 3" rect="1 31 11 11" code="A"/>
+ <Char width="9" offset="0 3" rect="13 31 8 11" code="B"/>
+ <Char width="9" offset="0 3" rect="22 31 8 11" code="C"/>
+ <Char width="10" offset="0 3" rect="31 31 9 11" code="D"/>
+ <Char width="8" offset="0 3" rect="41 31 7 11" code="E"/>
+ <Char width="8" offset="0 3" rect="49 31 7 11" code="F"/>
+ <Char width="10" offset="0 3" rect="57 31 9 11" code="G"/>
+ <Char width="10" offset="0 3" rect="67 31 9 11" code="H"/>
+ <Char width="4" offset="0 3" rect="77 31 3 11" code="I"/>
+ <Char width="7" offset="0 3" rect="81 31 6 11" code="J"/>
+ <Char width="9" offset="0 3" rect="88 31 10 11" code="K"/>
+ <Char width="8" offset="0 3" rect="99 31 7 11" code="L">
+  <Kerning id="'" advance="-1"/>
+  <Kerning id="*" advance="-1"/>
+  <Kerning id="T" advance="-1"/>
+  <Kerning id="V" advance="-1"/>
+  <Kerning id="Y" advance="-1"/>
+ </Char>
+ <Char width="12" offset="0 3" rect="107 31 11 11" code="M"/>
+ <Char width="10" offset="0 3" rect="1 43 9 11" code="N"/>
+ <Char width="11" offset="0 3" rect="11 43 10 11" code="O"/>
+ <Char width="9" offset="0 3" rect="22 43 8 11" code="P">
+  <Kerning id="." advance="-1"/>
+  <Kerning id="J" advance="-1"/>
+ </Char>
+ <Char width="11" offset="0 3" rect="31 43 10 13" code="Q"/>
+ <Char width="9" offset="0 3" rect="42 43 8 11" code="R"/>
+ <Char width="8" offset="0 3" rect="51 43 7 11" code="S"/>
+ <Char width="10" offset="0 3" rect="59 43 9 11" code="T">
+  <Kerning id="/" advance="-1"/>
+  <Kerning id="J" advance="-1"/>
+ </Char>
+ <Char width="10" offset="0 3" rect="69 43 9 11" code="U"/>
+ <Char width="10" offset="0 3" rect="79 43 9 11" code="V">
+  <Kerning id="J" advance="-1"/>
+ </Char>
+ <Char width="14" offset="0 3" rect="89 43 13 11" code="W"/>
+ <Char width="9" offset="0 3" rect="103 43 8 11" code="X"/>
+ <Char width="10" offset="0 3" rect="112 43 9 11" code="Y">
+  <Kerning id="J" advance="-1"/>
+ </Char>
+ <Char width="8" offset="0 3" rect="1 58 7 11" code="Z"/>
+ <Char width="5" offset="0 2" rect="9 57 5 14" code="[">
+  <Kerning id="]" advance="1"/>
+ </Char>
+ <Char width="6" offset="-1 2" rect="15 57 7 14" code="\"/>
+ <Char width="5" offset="-1 2" rect="23 57 5 14" code="]"/>
+ <Char width="8" offset="0 3" rect="29 58 7 7" code="^"/>
+ <Char width="7" offset="-2 13" rect="37 68 10 3" code="_"/>
+ <Char width="6" offset="0 2" rect="48 57 5 4" code="`"/>
+ <Char width="8" offset="0 5" rect="54 60 7 9" code="a"/>
+ <Char width="9" offset="0 2" rect="62 57 8 12" code="b"/>
+ <Char width="7" offset="0 5" rect="71 60 6 9" code="c"/>
+ <Char width="9" offset="0 2" rect="78 57 8 12" code="d"/>
+ <Char width="8" offset="0 5" rect="87 60 8 9" code="e"/>
+ <Char width="6" offset="0 2" rect="96 57 6 12" code="f"/>
+ <Char width="9" offset="0 5" rect="103 60 8 11" code="g"/>
+ <Char width="8" offset="0 2" rect="112 57 7 12" code="h"/>
+ <Char width="4" offset="-1 3" rect="120 58 5 11" code="i"/>
+ <Char width="4" offset="-2 3" rect="1 73 6 13" code="j"/>
+ <Char width="7" offset="0 2" rect="8 72 7 12" code="k"/>
+ <Char width="6" offset="0 2" rect="16 72 5 12" code="l"/>
+ <Char width="12" offset="0 5" rect="22 75 11 9" code="m"/>
+ <Char width="8" offset="0 5" rect="34 75 7 9" code="n"/>
+ <Char width="9" offset="0 5" rect="42 75 8 9" code="o"/>
+ <Char width="9" offset="0 5" rect="51 75 8 11" code="p"/>
+ <Char width="9" offset="0 5" rect="60 75 8 11" code="q"/>
+ <Char width="6" offset="0 5" rect="69 75 5 9" code="r"/>
+ <Char width="7" offset="0 5" rect="75 75 6 9" code="s"/>
+ <Char width="6" offset="0 3" rect="82 73 5 11" code="t"/>
+ <Char width="8" offset="0 5" rect="88 75 7 9" code="u"/>
+ <Char width="8" offset="0 5" rect="96 75 7 9" code="v"/>
+ <Char width="12" offset="0 5" rect="104 75 11 9" code="w"/>
+ <Char width="8" offset="0 5" rect="116 75 7 10" code="x"/>
+ <Char width="8" offset="0 5" rect="1 90 7 11" code="y"/>
+ <Char width="7" offset="0 5" rect="9 90 6 9" code="z"/>
+ <Char width="5" offset="0 2" rect="16 87 5 15" code="{"/>
+ <Char width="4" offset="0 2" rect="22 87 3 14" code="|"/>
+ <Char width="5" offset="-1 2" rect="26 87 5 15" code="}"/>
+ <Char width="8" offset="0 6" rect="32 91 7 5" code="~"/>
+</Font>

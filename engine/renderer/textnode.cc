@@ -64,24 +64,24 @@ void TextNode::Create(std::string fontname, float scale, float x, float y, std::
         // First triangle is defined in the following way
         // TL -> BL -> BR
         _vertices.push_back( Vertex2D() );
-        _vertices.back().x = _x + (float)rect->ox;
-        _vertices.back().y = _y - (float)rect->oy;
+        _vertices.back().x = _x + scale*((float)rect->ox);
+        _vertices.back().y = _y - scale*((float)rect->oy);
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->u;
         _uvcoordinates.back().y = uvmap->v;
 
         _vertices.push_back( Vertex2D() );
-        _vertices.back().x = _x + (float)rect->ox;
-        _vertices.back().y = _y - (float)rect->oy - (float)rect->h;
+        _vertices.back().x = _x + scale*((float)rect->ox);
+        _vertices.back().y = _y - scale*((float)rect->oy + (float)rect->h);
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->u;
         _uvcoordinates.back().y = uvmap->t;
 
         _vertices.push_back( Vertex2D() );
-        _vertices.back().x = _x + (float)rect->ox + (float)rect->w;
-        _vertices.back().y = _y - (float)rect->oy - (float)rect->h;
+        _vertices.back().x = _x + scale*((float)rect->ox + (float)rect->w);
+        _vertices.back().y = _y - scale*((float)rect->oy + (float)rect->h);
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->s;
@@ -90,30 +90,30 @@ void TextNode::Create(std::string fontname, float scale, float x, float y, std::
         // Second triangle is defined in the following way
         // TL -> BR -> TR
         _vertices.push_back( Vertex2D() );
-        _vertices.back().x = _x + (float)rect->ox;
-        _vertices.back().y = _y - (float)rect->oy;
+        _vertices.back().x = _x + scale*((float)rect->ox);
+        _vertices.back().y = _y - scale*((float)rect->oy);
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->u;
         _uvcoordinates.back().y = uvmap->v;
 
         _vertices.push_back( Vertex2D() );
-        _vertices.back().x = _x + (float)rect->ox + (float)rect->w;
-        _vertices.back().y = _y - (float)rect->oy - (float)rect->h;
+        _vertices.back().x = _x + scale*((float)rect->ox + (float)rect->w);
+        _vertices.back().y = _y - scale*((float)rect->oy + (float)rect->h);
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->s;
         _uvcoordinates.back().y = uvmap->t;
 
         _vertices.push_back( Vertex2D() );
-        _vertices.back().x = _x + (float)rect->ox + (float)rect->w;
-        _vertices.back().y = _y - (float)rect->oy;
+        _vertices.back().x = _x + scale*((float)rect->ox + (float)rect->w);
+        _vertices.back().y = _y - scale*((float)rect->oy);
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->s;
         _uvcoordinates.back().y = uvmap->v;
 
-        _x = _x + (float)rect->ox + (float)rect->w;
+        _x = _x + scale*((float)rect->ox + (float)rect->w);
     }
 
     // Transfer data to graphics card
