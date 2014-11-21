@@ -46,7 +46,7 @@ int main() {
     fontmanager->Start();
 
     TextNode tn( fontmanager );
-    tn.Create("Liberation Mono", 1.0f, 200.0, 150.0, "Casper Steinmann ROCKS!");
+    tn.Create("Ubuntu Light", 1.0f, 200.0, 150.0, "Casper Steinmann ROCKS!");
     tn.Show();
     glUseProgram( sm->GetProgram("font-shader" ) );
     Shader* s = sm->Get("font-shader");
