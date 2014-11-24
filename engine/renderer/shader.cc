@@ -148,24 +148,25 @@ void Shader::PrintProgramLinkInfo( GLuint program_index ) {
 }
 
 void Shader::SetupShaderLocations() {
-    _position = glGetAttribLocation( _program, "position" );
-    if ( _position == -1 ) {
-        CLOG(WARNING, "Shader") << "Input variable 'position' not found in '" << _name << "'.";
-    } else {
-        CLOG(INFO, "Shader") << "Input variable 'position' in '" << _name << "' has address: " << _position;
-    }
+    SetupShaderAttribLocation( _position, "vertex_position" );
+    SetupShaderAttribLocation( _texcoords, "texcoords" );
+    SetupShaderUniformLocation( _uniformprojectionmatrix, "projection" );
+}
 
-    _texcoords = glGetAttribLocation( _program, "texcoords" );
-    if ( _texcoords == -1 ) {
-        CLOG(WARNING, "Shader") << "Input variable 'position' not found in '" << _name << "'.";
+void Shader::SetupShaderAttribLocation( GLuint &attrib, std::string attribname ) {
+    attrib = glGetAttribLocation( _program, attribname.c_str() );
+    if ( attrib == -1 ) {
+        CLOG(WARNING, "Shader") << "Attribute variable '" << attribname << "' not found in '" << _name << "'.";
     } else {
-        CLOG(INFO, "Shader") << "Input variable 'position' in '" << _name << "' has address: " << _texcoords;
+        CLOG(INFO, "Shader") << "Attribute variable '" << attribname << "' in '" << _name << "' has address: " << attrib;
     }
+}
 
-    _uniformprojectionmatrix = glGetUniformLocation( _program, "projection" );
-    if ( _uniformprojectionmatrix == -1 ) {
-        CLOG(WARNING, "Shader") << "Uniform variable 'projection' not found in '" << _name << "'.";
+void Shader::SetupShaderUniformLocation( GLuint &uniform, std::string uniformname ) {
+    uniform = glGetUniformLocation( _program, uniformname.c_str() );
+    if ( uniform == -1 ) {
+        CLOG(WARNING, "Shader") << "Uniform variable '" << uniformname << "' not found in '" << _name << "'.";
     } else {
-        CLOG(INFO, "Shader") << "Uniform variable 'projection' in '" << _name << "' has address: " << _uniformprojectionmatrix;
+        CLOG(INFO, "Shader") << "Uniform variable '" << uniformname << "' in '" << _name << "' has address: " << uniform;
     }
 }

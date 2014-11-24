@@ -36,6 +36,8 @@ private:
     void PrintProgramLinkInfo( GLuint program_index );
 
     void SetupShaderLocations();
+    void SetupShaderAttribLocation( GLuint &attrib, std::string attribname );
+    void SetupShaderUniformLocation( GLuint &uniform, std::string uniformname );
     // variables for vertexattribs
     GLuint _position;
     GLuint _texcoords;
