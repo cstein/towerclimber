@@ -7,6 +7,8 @@
 #include "renderer/shadermanager.h"
 #include "renderer/textnode.h"
 
+#include <stdio.h>
+
 
 #include "easyloggingpp/src/easylogging++.h"
 
@@ -40,17 +42,20 @@ int main() {
     fontmanager->Start();
 
     TextNode tn( fontmanager );
-    tn.Create("Liberation Mono", 1.0f, 200.0, 150.0, "Casper Steinmann ROCKS!");
+    tn.Create("Liberation Mono", 1.0f, 200.0, 150.0, "Frame time: 00.000");
     tn.Show();
-    glUseProgram( sm->GetProgram("font-shader" ) );
+    glUseProgram( sm->GetProgram("font-shader") );
     Shader* s = sm->Get("font-shader");
     s->SetProjectionMatrix( window->GetProjection() );
 
     long total_time = 0L;
-    long delta_time = 1000000L;
-    
+    long delta_time = 16667000L;
     long current_time = get_time_ns();
     long accumulator = 0L;
+
+    long frame_time_average = 0L;
+    int frame_count = 0;
+    long last_time = current_time;
 
     glEnable(GL_BLEND);
     glBlendEquation( GL_FUNC_ADD );
@@ -60,6 +65,22 @@ int main() {
         long frame_time = new_time - current_time;
         current_time = new_time;
         accumulator += frame_time;
+
+        // frame counter start
+        frame_time_average += frame_time;
+        frame_count += 1;
+        if (current_time - last_time > 1000000000L) {
+            double fta = (double)frame_time_average / (1000000.0 * (double)frame_count);
+            char string [18];
+            sprintf( string, "Frame time: %6.3f", fta );
+            frame_count = 0;
+            last_time += 1000000000L;
+            frame_time_average = 0;
+
+            std::string ss( string );
+            tn.UpdateText( ss );
+        }
+        // frame counter end
 
         while( accumulator >= delta_time ) {
             // integrate physics here using t and dt
@@ -74,10 +95,6 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
         tn.Draw();
         window->Swap();
-
-        std::cout << "frame time: " << frame_time << " total time: " << total_time << " current time: " << current_time << " accumulator: " << accumulator << std::endl;
-        //if (t > 10000000000L)
-        //    break;
     }
 
     glUseProgram( 0 );
