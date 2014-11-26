@@ -19,6 +19,7 @@ public:
     RenderNode();
     ~RenderNode();
     virtual void Draw();
+    virtual void Update( double dt );
 
     /*
      * if a node is not visible, neither are it's children
@@ -26,6 +27,10 @@ public:
     bool IsVisible() { return _isvisible; }
     void Show() { _isvisible = true; }
     void Hide() { _isvisible = false; }
+
+    virtual void SetX( float x );
+    virtual void SetY( float y );
+
 protected:
     std::vector<Vertex2D> _vertices;
     std::vector<Vertex2D> _uvcoordinates;
@@ -40,6 +45,12 @@ protected:
     GLuint _vattribloc4;
 
     bool _isvisible;
+
+    // internal time counter. In milliseconds.
+    double _time;
+
+    float _x0;
+    float _y0;
 };
 
 #endif
