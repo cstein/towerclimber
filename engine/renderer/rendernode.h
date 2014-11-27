@@ -30,6 +30,8 @@ public:
 
     virtual void SetX( float x );
     virtual void SetY( float y );
+    virtual float GetX() { return _x0; }
+    virtual float GetY() { return _y0; }
 
 protected:
     std::vector<Vertex2D> _vertices;
@@ -37,12 +39,8 @@ protected:
     GLuint _texture;
     GLuint _vao;
     GLuint _vbo[5];
-
-    GLuint _vattribloc0;
-    GLuint _vattribloc1;
-    GLuint _vattribloc2;
-    GLuint _vattribloc3;
-    GLuint _vattribloc4;
+    GLuint _vattribloc[5];
+    bool _vattribactive[5];
 
     bool _isvisible;
 

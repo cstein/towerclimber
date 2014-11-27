@@ -10,10 +10,6 @@ TextNode::~TextNode() {
     if (_fontmanager != nullptr) {
         _fontmanager = nullptr;
     }
-    glDisableVertexAttribArray(1);
-    glDisableVertexAttribArray(0);
-    glDeleteBuffers(2, _vbo);
-    glDeleteVertexArrays(1, &_vao);
 }
 
 void TextNode::Draw() {
