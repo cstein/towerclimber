@@ -16,7 +16,7 @@ public:
     void UpdateText( std::string text );
 private:
     std::string _fontname;
-    int _textlength;
+    std::string _text;
     Font* _font;
     FontManager* _fontmanager;
     float _scale;
@@ -24,8 +24,7 @@ private:
     void SetScale( float scale );
     void SetFontName( std::string fontname );
     void SetText( std::string text );
-    void CreateVAOVBO();
-    void UpdateVAOVBO();
+    void CreateVBO();
 };
 
 #endif
