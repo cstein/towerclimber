@@ -32,6 +32,8 @@ public:
     virtual void SetY( float y );
     virtual float GetX() { return _x0; }
     virtual float GetY() { return _y0; }
+    virtual bool CreateVAO();
+    virtual void DestroyVAO();
 
 protected:
     std::vector<Vertex2D> _vertices;
