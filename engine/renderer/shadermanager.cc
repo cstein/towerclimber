@@ -37,6 +37,7 @@ void ShaderManager::Start() {
                     shader = _configuration.get<jsonxx::Object>( shadername );
                     vertexfilename = shader.get<jsonxx::String>("vert");
                     fragmentfilename = shader.get<jsonxx::String>("frag");
+
                     _shaders[shadername] = Shader();
                     _shaders[shadername].SetShaderName( shadername );
                     _shaders[shadername].SetVertexShaderFilename( vertexfilename );

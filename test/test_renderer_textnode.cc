@@ -1,3 +1,4 @@
+#include "base/glwindow.h"
 #include "renderer/textnode.h"
 #include "renderer/shadermanager.h"
 #include "gtest/gtest.h"
@@ -6,11 +7,14 @@
 _INITIALIZE_EASYLOGGINGPP
 
 TEST(Renderer_TextNode, coordinates) {
+    GLWindow window = GLWindow();
+    window.Start();
+
     FontManager* f = new FontManager();
     f->Start();
 
-    //ShaderManager* s = new ShaderManager();
-    //s->Start();
+    ShaderManager* s = new ShaderManager();
+    s->Start();
 
     TextNode* t = new TextNode( f );
     //TextNode t(f);
@@ -19,8 +23,8 @@ TEST(Renderer_TextNode, coordinates) {
     EXPECT_EQ(0.0f, t->GetY());
 
     delete t;
-    //s->Stop();
-    //delete s;
+    s->Stop();
+    delete s;
     f->Stop();
     delete f;
 }

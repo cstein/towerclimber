@@ -1,3 +1,4 @@
+#include "base/glwindow.h"
 #include "renderer/shadermanager.h"
 #include "gtest/gtest.h"
 #include "easyloggingpp/src/easylogging++.h"
@@ -5,6 +6,8 @@
 _INITIALIZE_EASYLOGGINGPP
 
 TEST(Renderer_ShaderManager, Base) {
+    GLWindow window = GLWindow();
+    window.Start();
     ShaderManager* s = new ShaderManager();
     s->Start();
 
