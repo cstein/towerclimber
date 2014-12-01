@@ -59,3 +59,31 @@ target_link_libraries(test_renderer_textnode
     -lGL
     )
 add_test(renderer_textnode test_renderer_textnode)
+
+# --- Shader ---
+add_executable(test_renderer_shader test_renderer_shader.cc)
+target_link_libraries(test_renderer_shader
+    engine
+    jsonxx
+    lodepng
+    pugixml
+    ${SDL2_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    gtest
+    -lGL
+    )
+add_test(renderer_shader test_renderer_shader)
+
+# --- ShaderManager ---
+add_executable(test_renderer_shadermanager test_renderer_shadermanager.cc)
+target_link_libraries(test_renderer_shadermanager
+    engine
+    jsonxx
+    lodepng
+    pugixml
+    ${SDL2_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    gtest
+    -lGL
+    )
+add_test(renderer_shadermanager test_renderer_shadermanager)

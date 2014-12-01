@@ -1,32 +1,18 @@
 #include "base/glwindow.h"
-#include "renderer/textnode.h"
 #include "renderer/shadermanager.h"
 #include "gtest/gtest.h"
 #include "easyloggingpp/src/easylogging++.h"
 
 _INITIALIZE_EASYLOGGINGPP
 
-TEST(Renderer_TextNode, coordinates) {
+TEST(Renderer_ShaderManager, Base) {
     GLWindow window = GLWindow();
     window.Start();
-
-    FontManager* f = new FontManager();
-    f->Start();
-
     ShaderManager* s = new ShaderManager();
     s->Start();
 
-    TextNode* t = new TextNode( f );
-    //TextNode t(f);
-    //t.Create("Ubuntu Mono", 1.0f, 0.0f, 0.0f, "LOL");
-    EXPECT_EQ(0.0f, t->GetX());
-    EXPECT_EQ(0.0f, t->GetY());
-
-    delete t;
     s->Stop();
     delete s;
-    f->Stop();
-    delete f;
 }
 
 
