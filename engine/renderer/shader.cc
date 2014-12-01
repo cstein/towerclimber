@@ -15,7 +15,7 @@ Shader::~Shader() {
 bool Shader::Load() {
 
     if (_vertexshaderfilename.length() == 0 ) {
-        //CLOG(ERROR, "Shader") << "Vertex shader filename not set.";
+        CLOG(WARNING, "Shader") << "Vertex shader filename not set.";
         return false;
     }
 
