@@ -20,7 +20,7 @@ bool Shader::Load() {
     }
 
     if (_fragmentshaderfilename.length() == 0) {
-        CLOG(ERROR, "Shader") << "Fragment shader filename not set.";
+        CLOG(WARNING, "Shader") << "Fragment shader filename not set.";
         return false;
     }
 
