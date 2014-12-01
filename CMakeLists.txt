@@ -20,8 +20,11 @@ find_package(GLEW REQUIRED)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/engine)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rd-party)
 
+message("- Configuring 3rd-party libraries")
 add_subdirectory(3rd-party)
+message("- Configuring game engine")
 add_subdirectory(engine)
+message("- Configuring game")
 add_subdirectory(game)
 
 if(ENABLE_TEST)

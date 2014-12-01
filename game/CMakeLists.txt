@@ -7,9 +7,10 @@ add_executable(game ${GAME_SRC})
 
 target_link_libraries(game
     engine
-    jsonxx
-    lodepng
-    pugixml
+    ${BULLET_LIBRARIES}
+    ${JSONXX_LIBRARIES}
+    ${LODEPNG_LIBRARIES}
+    ${PUGIXML_LIBRARIES}
     ${SDL2_LIBRARIES}
     ${GLEW_LIBRARIES}
     -lGL)
