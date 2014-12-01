@@ -11,6 +11,7 @@ Requirements
   * [lodePNG][4]
   * [pugixml][5]
   * [Eigen3][6] (version 3.2 or later)
+  * [Bullet3][8] (version 2.80 or later)
   * [Google Test][7] (version 1.7 or later)
 
 [1]: http://www.towerclimber.com "Towerclimber"
@@ -20,3 +21,4 @@ Requirements
 [5]: https://github.com/zeux/pugixml "pugixml"
 [6]: http://eigen.tuxfamily.org/index.php?title=Main_Page "Eigen3"
 [7]: https://code.google.com/p/googletest/ "Google Test"
+[8]: http://bulletphysics.org/
