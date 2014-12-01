@@ -5,6 +5,7 @@ project(3rd-party)
 add_subdirectory(jsonxx)
 add_subdirectory(pugixml)
 add_subdirectory(lodepng)
+
 if(ENABLE_TEST)
     message("- TESTS are enabled.")
     add_subdirectory(gtest-1.7.0)

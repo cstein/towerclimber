@@ -15,7 +15,7 @@ Shader::~Shader() {
 bool Shader::Load() {
 
     if (_vertexshaderfilename.length() == 0 ) {
-        CLOG(ERROR, "Shader") << "Vertex shader filename not set.";
+        //CLOG(ERROR, "Shader") << "Vertex shader filename not set.";
         return false;
     }
 
@@ -27,13 +27,10 @@ bool Shader::Load() {
     int params;
 
     _program = glCreateProgram();
-    CLOG(INFO, "Shader") << "1";
     if ( _program != 0 ) {
         _vertexshader = CreateShader(_vertexshaderfilename, GL_VERTEX_SHADER);
-    CLOG(INFO, "Shader") << "2";
         if ( _vertexshader != 0 ) {
             _fragmentshader = CreateShader(_fragmentshaderfilename, GL_FRAGMENT_SHADER);
-    CLOG(INFO, "Shader") << "3";
             if ( _fragmentshader != 0 ) {
                 glAttachShader( _program, _vertexshader );
                 glAttachShader( _program, _fragmentshader );

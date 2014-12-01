@@ -4,25 +4,23 @@ message("--- Google Test: ${gtest_SOURCE_DIR}/include")
 
 include_directories(${gtest_SOURCE_DIR}/include)
 
-
-set(GAME_LIBS
+set(GAME_LIBRARIES
     engine
     jsonxx
     lodepng
     pugixml
     ${SDL2_LIBRARIES}
     ${GLEW_LIBRARIES}
-    -lGL
-    )
+    -lGL)
 
-set(GAME_TEST_LIBS
-    ${GAME_LIBS}
+set(GAME_TEST_LIBRARIES
+    ${GAME_LIBRARIES}
     gtest
     )
 
 macro(simple_test TARGET_NAME)
     add_executable(test_${TARGET_NAME} test_${TARGET_NAME}.cc)
-    target_link_libraries(test_${TARGET_NAME} ${GAME_TEST_LIBS})
+    target_link_libraries(test_${TARGET_NAME} ${GAME_TEST_LIBRARIES})
     add_test(${TARGET_NAME} test_${TARGET_NAME})
 endmacro()
 
