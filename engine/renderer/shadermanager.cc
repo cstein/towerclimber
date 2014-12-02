@@ -62,3 +62,19 @@ void ShaderManager::Start() {
 void ShaderManager::Stop() {
 
 }
+//Font* FontManager::Get(std::string fontname) {
+//    std::map<std::string, Font>::iterator it = _fonts.find( fontname );
+//    if (it != _fonts.end()) {
+//        return &it->second;
+//    } else {
+//        CLOG(ERROR, "FontManager") << "Font '" << fontname << "' not found.";
+//        return nullptr;
+//    }
+//}
+
+bool ShaderManager::HasShader( std::string shadername ) {
+    std::map<std::string, Shader>::iterator it = _shaders.find( shadername );
+    if (it != _shaders.end())
+        return true;
+    return false;
+}

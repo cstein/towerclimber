@@ -5,14 +5,29 @@
 
 _INITIALIZE_EASYLOGGINGPP
 
-TEST(Renderer_ShaderManager, Base) {
-    GLWindow window = GLWindow();
-    window.Start();
-    ShaderManager* s = new ShaderManager();
-    s->Start();
+class ShaderManagerTest : public ::testing::Test {
+protected:
+    ShaderManager* s;
+    ShaderManagerTest() {
+        GLWindow window = GLWindow();
+        window.Start();
+    }
 
-    s->Stop();
-    delete s;
+    void SetUp() {
+        s = new ShaderManager();
+        s->Start();
+    }
+
+    void TearDown() {
+        s->Stop();
+        delete s;
+    }
+
+};
+
+TEST_F(ShaderManagerTest, HasLoadedShader) {
+    EXPECT_TRUE(s->HasShader("font-shader"));
+    EXPECT_FALSE(s->HasShader("dummy-shader"));
 }
 
 

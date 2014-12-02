@@ -18,6 +18,8 @@ public:
     virtual void Stop();
     GLuint GetProgram( std::string shadername ) { return _shaders[ shadername ].Get(); }
     Shader* Get( std::string shadername ) { return &_shaders[ shadername ]; }
+
+    bool HasShader( std::string shadername );
 private:
     GLuint _currentshader;
     jsonxx::Object _configuration;
