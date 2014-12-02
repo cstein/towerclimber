@@ -15,12 +15,12 @@ Shader::~Shader() {
 bool Shader::Load() {
 
     if (_vertexshaderfilename.length() == 0 ) {
-        CLOG(WARNING, "Shader") << "Vertex shader filename not set.";
+        CLOG(ERROR, "Shader") << "Cannot load shader. Vertex shader filename not set.";
         return false;
     }
 
     if (_fragmentshaderfilename.length() == 0) {
-        CLOG(WARNING, "Shader") << "Fragment shader filename not set.";
+        CLOG(ERROR, "Shader") << "Cannot load shader. Fragment shader filename not set.";
         return false;
     }
 
