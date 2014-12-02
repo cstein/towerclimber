@@ -14,3 +14,7 @@ set(ENGINE_SRC
 
 add_library(engine
     ${ENGINE_SRC})
+
+set(ENGINE_LIBRARIES
+    engine
+    PARENT_SCOPE)

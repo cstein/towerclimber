@@ -21,8 +21,12 @@ add_subdirectory(bullet3)
 set(BULLET_LIBRARIES ${BULLET_LIBRARIES} PARENT_SCOPE)
 
 if(ENABLE_TEST)
-    message("- TESTS are enabled.")
+    message("--- Setting up Google test")
     add_subdirectory(gtest-1.7.0)
     include_directories(${gtest_SOURCE_DIR}/include)
+
+    set(TEST_LIBRARIES
+        gtest
+        PARENT_SCOPE)
 endif(ENABLE_TEST)
 

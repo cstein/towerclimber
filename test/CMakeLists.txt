@@ -1,17 +1,7 @@
 
-message("-- Setting up test cases.")
-message("--- Google Test: ${gtest_SOURCE_DIR}/include")
+message("-- Configuring tests")
 
 include_directories(${gtest_SOURCE_DIR}/include)
-
-set(GAME_LIBRARIES
-    engine
-    jsonxx
-    lodepng
-    pugixml
-    ${SDL2_LIBRARIES}
-    ${GLEW_LIBRARIES}
-    -lGL)
 
 set(GAME_TEST_LIBRARIES
     ${GAME_LIBRARIES}
@@ -21,7 +11,9 @@ set(GAME_TEST_LIBRARIES
 macro(simple_test TARGET_NAME)
     add_executable(test_${TARGET_NAME} test_${TARGET_NAME}.cc)
     target_link_libraries(test_${TARGET_NAME} ${GAME_TEST_LIBRARIES})
-    add_test(${TARGET_NAME} test_${TARGET_NAME})
+    add_test(NAME ${TARGET_NAME}
+             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+             COMMAND test_${TARGET_NAME})
 endmacro()
 
 simple_test(glwindow)

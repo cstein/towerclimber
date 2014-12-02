@@ -12,19 +12,36 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-deprecated-declarations 
 
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
-include_directories(${SDL2_INCLUDE_DIRS})
 
 find_package(GLEW REQUIRED)
+find_package(OpenGL REQUIRED)
+
+set(GFX_LIBRARIES
+    ${SDL2_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    ${OPENGL_LIBRARIES})
+
+include_directories(${SDL2_INCLUDE_DIRS})
 
 # specific source directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/engine)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rd-party)
 
-message("- Configuring 3rd-party libraries")
+message("-- Configuring 3rd-party libraries")
 add_subdirectory(3rd-party)
-message("- Configuring game engine")
+set(THIRDPARTY_LIBRARIES
+    ${JSONXX_LIBRARIES}
+    ${PUGIXML_LIBRARIES}
+    ${LODEPNG_LIBRARIES}
+    ${BULLET_LIBRARIES})
+
+message("-- Configuring game engine")
 add_subdirectory(engine)
-message("- Configuring game")
+message("-- Configuring game")
+set(GAME_LIBRARIES
+    ${ENGINE_LIBRARIES}
+    ${THIRDPARTY_LIBRARIES}
+    ${GFX_LIBRARIES})
 add_subdirectory(game)
 
 if(ENABLE_TEST)
