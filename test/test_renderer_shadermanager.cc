@@ -30,6 +30,10 @@ TEST_F(ShaderManagerTest, HasLoadedShader) {
     EXPECT_FALSE(s->HasShader("dummy-shader"));
 }
 
+TEST_F(ShaderManagerTest, ShaderPointers) {
+    EXPECT_EQ(nullptr, s->GetShader("dummy-shader"));
+}
+
 
 GTEST_API_ int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
