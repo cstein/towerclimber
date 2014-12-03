@@ -35,12 +35,14 @@ TEST_F(ShaderManagerTest, ShaderPointers) {
 }
 
 TEST_F(ShaderManagerTest, NoShaderProgramBound) {
-    EXPECT_EQ(0, s->GetBoundShader());
+    EXPECT_EQ(0, s->GetBoundShaderID());
+    EXPECT_EQ(nullptr, s->GetBoundShader());
 }
 
 TEST_F(ShaderManagerTest, BindShaderByName) {
     EXPECT_TRUE(s->BindShader("font-shader"));
-    EXPECT_EQ(1, s->GetBoundShader());
+    EXPECT_EQ(1, s->GetBoundShaderID());
+    EXPECT_EQ("font-shader", s->GetBoundShader()->GetName());
 }
 
 TEST_F(ShaderManagerTest, BindShaderFailByName) {
