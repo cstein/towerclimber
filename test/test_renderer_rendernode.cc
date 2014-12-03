@@ -26,6 +26,16 @@ TEST_F(RenderNodeTest, visibility) {
     EXPECT_TRUE(r.IsVisible());
 }
 
+TEST_F(RenderNodeTest, hasnoshaderattached) {
+    EXPECT_FALSE( r.HasShaderAttached() );
+}
+
+TEST_F(RenderNodeTest, attachshadernode) {
+    // we avoid initializing the rendering subsystem by using
+    // null as a ShaderManager here
+    r.AttachShader( nullptr, "font-shader" );
+    EXPECT_TRUE( r.HasShaderAttached() );
+}
 
 GTEST_API_ int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

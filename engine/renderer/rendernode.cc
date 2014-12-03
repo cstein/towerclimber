@@ -17,6 +17,8 @@ RenderNode::RenderNode() {
         _vattribactive[i] = false;
     }
 
+    _shadername = "";
+    _shadermanager = nullptr;
 
 }
 
@@ -39,7 +41,8 @@ RenderNode::~RenderNode() {
 }
 
 void RenderNode::Draw() {
-
+    // All subclassed nodes must call the shadermanager and bind
+    // the appropriate shader
 }
 
 void RenderNode::Update( double dt ) {
@@ -67,4 +70,9 @@ void RenderNode::DestroyVAO() {
         glDeleteVertexArrays(1, &_vao);
     }
 
+}
+
+void RenderNode::AttachShader( ShaderManager* sm, std::string shadername ) {
+    _shadermanager = sm;
+    _shadername = shadername;
 }
