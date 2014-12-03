@@ -4,17 +4,26 @@
 
 _INITIALIZE_EASYLOGGINGPP
 
-TEST(Renderer_RenderNode, coordinates) {
-    RenderNode r = RenderNode();
+class RenderNodeTest : public ::testing::Test {
+protected:
+    RenderNode r;
+
+    void SetUp() {
+        r = RenderNode();
+    }
+};
+
+TEST_F(RenderNodeTest, coordinates) {
     EXPECT_EQ(0.0f, r.GetX());
     EXPECT_EQ(0.0f, r.GetY());
 }
 
-TEST(Renderer_RenderNode, visibility) {
-    RenderNode r = RenderNode();
+TEST_F(RenderNodeTest, visibility) {
     EXPECT_TRUE(r.IsVisible());
     r.Hide();
     EXPECT_FALSE(r.IsVisible());
+    r.Show();
+    EXPECT_TRUE(r.IsVisible());
 }
 
 
