@@ -42,11 +42,18 @@ int main() {
     fontmanager->Start();
 
     TextNode tn( fontmanager );
-    tn.Create("Liberation Mono", 1.0f, 200.0, 150.0, "Frame time: 00.000");
+    tn.Create("Ubuntu Mono", 1.0f, 20.0, 580.0, "Frame time:");
     tn.Show();
-    glUseProgram( sm->GetProgram("font-shader") );
-    Shader* s = sm->Get("font-shader");
-    s->SetProjectionMatrix( window->GetProjection() );
+    TextNode tt( fontmanager );
+    tt.Create("Ubuntu Light", 1.0f, 20.0f, 20.0f, "Testing Casper Steinmann Testing -");
+    tt.Show();
+    //glUseProgram( sm->GetProgram("font-shader") );
+    //Shader* s = sm->Get("font-shader");
+    Shader* s = nullptr;
+    if (sm->HasShader( "font-shader" )) {
+        sm->BindShader( "font-shader" );
+        sm->GetBoundShader()->SetProjectionMatrix( window->GetProjection() );
+    }
 
     long total_time = 0L;
     long delta_time = 16667000L;
@@ -94,6 +101,7 @@ int main() {
         glClearColor( 0.39, 0.58, 0.93, 1.0 );
         glClear(GL_COLOR_BUFFER_BIT);
         tn.Draw();
+        tt.Draw();
         window->Swap();
     }
 
