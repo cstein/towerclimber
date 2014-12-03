@@ -21,6 +21,8 @@ public:
 
     bool HasShader( std::string shadername );
     Shader* GetShader( std::string shadername );
+    const inline GLuint GetBoundShader() { return _currentshader; }
+    bool BindShader( std::string shadername );
 private:
     GLuint _currentshader;
     jsonxx::Object _configuration;

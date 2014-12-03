@@ -34,6 +34,19 @@ TEST_F(ShaderManagerTest, ShaderPointers) {
     EXPECT_EQ(nullptr, s->GetShader("dummy-shader"));
 }
 
+TEST_F(ShaderManagerTest, NoShaderProgramBound) {
+    EXPECT_EQ(0, s->GetBoundShader());
+}
+
+TEST_F(ShaderManagerTest, BindShaderByName) {
+    EXPECT_TRUE(s->BindShader("font-shader"));
+    EXPECT_EQ(1, s->GetBoundShader());
+}
+
+TEST_F(ShaderManagerTest, BindShaderFailByName) {
+    EXPECT_FALSE(s->BindShader("dummy-shader"));
+}
+
 
 GTEST_API_ int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

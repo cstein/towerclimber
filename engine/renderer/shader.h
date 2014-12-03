@@ -20,6 +20,8 @@ public:
     // The shader ID for the program.
     const inline GLuint Get() { return _program; }
 
+    bool Use();
+
     // Uniforms
     void SetProjectionMatrix( Eigen::Matrix4f P );
 private:

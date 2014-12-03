@@ -55,7 +55,7 @@ bool Shader::Load() {
             return false;
         }
     }
-    CLOG(INFO, "Shader") << "Succesfully compiled and linked shader program: '" << _name << "'.";
+    CLOG(INFO, "Shader") << "Succesfully compiled and linked shader program: '" << _name << "' at address " << _program << ".";
     return true;
 }
 
@@ -169,4 +169,11 @@ void Shader::SetupShaderUniformLocation( GLuint &uniform, std::string uniformnam
     } else {
         CLOG(INFO, "Shader") << "Uniform variable '" << uniformname << "' in '" << _name << "' has address: " << uniform;
     }
+}
+
+bool Shader::Use() {
+    if (_program == 0)
+        return false;
+    glUseProgram( _program );
+    return true;
 }
