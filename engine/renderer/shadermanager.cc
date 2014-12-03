@@ -7,6 +7,8 @@
 ShaderManager::ShaderManager() {
     el::Logger* FontManagerLogger = el::Loggers::getLogger("ShaderManager");
     el::Logger* FontLogger = el::Loggers::getLogger("Shader");
+    _currentshaderid = 0;
+    _currentshader = nullptr;
 }
 
 ShaderManager::~ShaderManager() {
@@ -61,4 +63,33 @@ void ShaderManager::Start() {
 
 void ShaderManager::Stop() {
 
+}
+
+Shader* ShaderManager::GetShader( std::string shadername ) {
+    std::map<std::string, Shader>::iterator it = _shaders.find( shadername );
+    if (it != _shaders.end()) {
+        return &it->second;
+    } else {
+        return nullptr;
+    }
+}
+
+bool ShaderManager::HasShader( std::string shadername ) {
+    return GetShader(shadername) != nullptr;
+}
+
+
+bool ShaderManager::BindShader( std::string shadername ) {
+    if (!HasShader( shadername ))
+        return false;
+    Shader* s = GetShader( shadername );
+
+    // if the current shader is not the one we ask for, bind it.
+    if (s->GetID() != _currentshaderid) {
+        _currentshaderid = s->GetID();
+        _currentshader = s;
+        return s->Use(); // actually bind the shader
+    }
+
+    return true;
 }

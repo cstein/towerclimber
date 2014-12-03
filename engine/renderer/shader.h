@@ -17,8 +17,12 @@ public:
     void SetVertexShaderFilename( std::string filename );
     void SetFragmentShaderFilename( std::string filename );
 
+
     // The shader ID for the program.
-    const inline GLuint Get() { return _program; }
+    const inline GLuint GetID() { return _program; }
+    std::string GetName() {return _name; }
+
+    bool Use();
 
     // Uniforms
     void SetProjectionMatrix( Eigen::Matrix4f P );

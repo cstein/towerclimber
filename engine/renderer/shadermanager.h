@@ -16,10 +16,15 @@ public:
     ~ShaderManager();
     virtual void Start();
     virtual void Stop();
-    GLuint GetProgram( std::string shadername ) { return _shaders[ shadername ].Get(); }
-    Shader* Get( std::string shadername ) { return &_shaders[ shadername ]; }
+
+    bool HasShader( std::string shadername );
+    Shader* GetShader( std::string shadername );
+    const inline GLuint GetBoundShaderID() { return _currentshaderid; }
+    Shader* GetBoundShader() { return _currentshader; }
+    bool BindShader( std::string shadername );
 private:
-    GLuint _currentshader;
+    GLuint _currentshaderid;
+    Shader* _currentshader;
     jsonxx::Object _configuration;
     std::map<std::string, Shader> _shaders;
 };
