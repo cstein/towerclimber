@@ -2,7 +2,11 @@
 #define __RENDERNODE_H_
 
 #include <vector>
+#include <string>
 #include <GL/glew.h>
+
+#include "renderer/shadermanager.h"
+
 
 struct Vertex2D {
     float x;
@@ -18,6 +22,11 @@ class RenderNode {
 public:
     RenderNode();
     ~RenderNode();
+
+    /* Attaches a shader to the RenderNode.
+     */
+    virtual void AttachShader( ShaderManager* sm, std::string shadername );
+
     virtual void Draw();
     virtual void Update( double dt );
 
@@ -35,6 +44,8 @@ public:
     virtual bool CreateVAO();
     virtual void DestroyVAO();
 
+    virtual bool HasShaderAttached() { return _shadername != ""; }
+
 protected:
     std::vector<Vertex2D> _vertices;
     std::vector<Vertex2D> _uvcoordinates;
@@ -51,6 +62,9 @@ protected:
 
     float _x0;
     float _y0;
+
+    std::string _shadername;
+    ShaderManager* _shadermanager;
 };
 
 #endif

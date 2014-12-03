@@ -10,11 +10,20 @@ TextNode::~TextNode() {
     if (_fontmanager != nullptr) {
         _fontmanager = nullptr;
     }
+
+    if (_shadermanager != nullptr) {
+        _shadermanager = nullptr;
+    }
 }
 
 void TextNode::Draw() {
     if (!_isvisible)
         return;
+
+    if (!HasShaderAttached())
+        return;
+
+    _shadermanager->BindShader( _shadername );
 
     _font->BindTexture();
 
