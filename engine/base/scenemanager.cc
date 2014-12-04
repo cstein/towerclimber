@@ -10,6 +10,7 @@ SceneManager::SceneManager() {
 }
 
 SceneManager::~SceneManager() {
+    _scenes.clear();
 }
 
 // this will initiate all scenes (but not load them)
@@ -38,7 +39,11 @@ Scene* SceneManager::GetActiveScene() {
 }
 
 Scene* SceneManager::PopScene() {
-    return nullptr;
+    if (_scenes.empty())
+        return nullptr;
+    Scene* s = _scenes.back();
+    _scenes.pop_back();
+    return s;
 }
 
 void SceneManager::PushScene(Scene* s) {
