@@ -36,12 +36,13 @@ import math
 # evaluation region
 minx = 0.0
 maxx = 5.0
-delta = 1.0
+delta = 0.1
 
 # constants used in the formulas. see specific formulas for precise use.
 fd_a = 4.0
 fd_b = (maxx-minx) / 2.0
 cos_a = maxx - minx
+lin_a = cos_a
 
 # print format for numbers
 floatformat = "{0:6.3f}f,"
@@ -58,6 +59,7 @@ def printfunc(f):
         sval = sval + floatformat.format(value)
 
     print("{0:25s} = {{{1}}};".format(snam, sval[:-1]));
+
 #
 # FERMI-DIRAC
 #
@@ -84,8 +86,21 @@ def fi_cos():
 def fo_cos():
     return "FO_COS", 0.5*(1+numpy.cos(X*numpy.pi/cos_a))
 
+#
+# Linear
+#
+# fade-in
+#
+def fi_lin():
+    return "FI_LIN", X/lin_a
+
+def fo_lin():
+    return "FO_LIN", 1-X/lin_a
+
 print "#define FADERSTEPS %i" % len(X);
 printfunc( fi_fermidirac )
 printfunc( fo_fermidirac )
 printfunc( fi_cos )
 printfunc( fo_cos )
+printfunc( fi_lin )
+printfunc( fo_lin )
