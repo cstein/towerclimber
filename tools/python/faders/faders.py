@@ -97,6 +97,8 @@ def fi_lin():
 def fo_lin():
     return "FO_LIN", 1-X/lin_a
 
+print "#ifndef __FADERS_H_"
+print "#define __FADERS_H_"
 print "#define FADERSTEPS %i" % len(X);
 printfunc( fi_fermidirac )
 printfunc( fo_fermidirac )
@@ -104,3 +106,4 @@ printfunc( fi_cos )
 printfunc( fo_cos )
 printfunc( fi_lin )
 printfunc( fo_lin )
+print "#endif"
