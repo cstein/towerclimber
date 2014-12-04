@@ -12,10 +12,6 @@ SceneManager::SceneManager() {
 SceneManager::~SceneManager() {
 }
 
-Scene* SceneManager::GetActive() {
-    return nullptr;
-}
-
 // this will initiate all scenes (but not load them)
 void SceneManager::Start() {
     std::string line;
@@ -33,4 +29,12 @@ void SceneManager::Start() {
 
 void SceneManager::Stop() {
 
+}
+
+Scene* SceneManager::GetActiveScene() {
+    return nullptr;
+}
+
+Scene* SceneManager::PopScene() {
+    return nullptr;
 }
