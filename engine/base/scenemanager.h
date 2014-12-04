@@ -19,7 +19,7 @@ public:
     virtual void Start();
     virtual void Stop();
 
-    void AddScene(Scene* s);
+    void PushScene(Scene* s);
     Scene* PopScene();
     Scene* GetActiveScene();
 
@@ -27,7 +27,6 @@ public:
 
 protected:
     std::vector<Scene*> _scenes;
-
 };
 
 #endif

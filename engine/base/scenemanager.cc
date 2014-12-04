@@ -32,9 +32,15 @@ void SceneManager::Stop() {
 }
 
 Scene* SceneManager::GetActiveScene() {
+    if (!_scenes.empty())
+        return _scenes.back();
     return nullptr;
 }
 
 Scene* SceneManager::PopScene() {
     return nullptr;
+}
+
+void SceneManager::PushScene(Scene* s) {
+    _scenes.push_back( s );
 }
