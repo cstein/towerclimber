@@ -86,7 +86,7 @@ int main() {
 
         while( accumulator >= delta_time ) {
             // integrate physics here using t and dt
-            controls->Update( scenemanager->GetActive() );
+            controls->Update( scenemanager->GetActiveScene() );
             running = !controls->IsExitState();
             accumulator -= delta_time;
             total_time += delta_time;

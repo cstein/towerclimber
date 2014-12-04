@@ -1,6 +1,10 @@
 #ifndef __SCENE_H_
 #define __SCENE_H_
 
-class Scene;
+class Scene {
+public:
+    Scene();
+    ~Scene();
+};
 
 #endif

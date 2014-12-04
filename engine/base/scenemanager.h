@@ -1,6 +1,8 @@
 #ifndef __SCENEMANAGER_H_
 #define __SCENEMANAGER_H_
 
+#include <vector>
+
 #include "manager.h"
 #include "scene.h"
 
@@ -16,7 +18,15 @@ public:
     ~SceneManager();
     virtual void Start();
     virtual void Stop();
-    Scene* GetActive();
+
+    void PushScene(Scene* s);
+    Scene* PopScene();
+    Scene* GetActiveScene();
+
+    void Update();
+
+protected:
+    std::vector<Scene*> _scenes;
 };
 
 #endif
