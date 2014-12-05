@@ -16,11 +16,13 @@ add_custom_command(
 
 include(base/CMakeLists.txt)
 include(fonts/CMakeLists.txt)
+include(game/CMakeLists.txt)
 include(renderer/CMakeLists.txt)
 
 set(ENGINE_SRC
     ${BASE_SRC}
     ${FONTS_SRC}
+    ${GAME_SRC}
     ${RENDERER_SRC}
     )
 

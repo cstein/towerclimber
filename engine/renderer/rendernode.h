@@ -5,6 +5,7 @@
 #include <string>
 #include <GL/glew.h>
 
+#include "base/node.h"
 #include "renderer/shadermanager.h"
 
 
@@ -18,7 +19,7 @@ struct Vertex2D {
  *
  * A single rendernode can have 1 VAO and up to 5 VBOs
  */
-class RenderNode {
+class RenderNode : public Node {
 public:
     RenderNode();
     ~RenderNode();

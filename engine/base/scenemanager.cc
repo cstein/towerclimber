@@ -49,3 +49,13 @@ Scene* SceneManager::PopScene() {
 void SceneManager::PushScene(Scene* s) {
     _scenes.push_back( s );
 }
+
+void SceneManager::Update( double dt ) {
+    if (!_scenes.empty())
+        GetActiveScene()->Update( dt );
+}
+
+void SceneManager::Draw() {
+    if (!_scenes.empty())
+        GetActiveScene()->Draw();
+}
