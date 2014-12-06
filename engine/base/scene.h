@@ -28,12 +28,12 @@ public:
     Scene();
     ~Scene();
 
-    void AddObject(Object o);
+    void AddObject(Object* o);
 
     void Update( double dt );
     void Draw();
 protected:
-    std::vector<Object> _objects;
+    std::vector<Object*> _objects;
 };
 
 #endif

@@ -7,6 +7,8 @@
 #include "renderer/shadermanager.h"
 #include "renderer/textnode.h"
 
+#include "game/object.h"
+
 #include <stdio.h>
 
 
@@ -30,16 +32,39 @@ int main() {
     ShaderManager* sm = new ShaderManager();
     sm->Start();
 
-    // start engine subsystems
-    // SceneManager manages all scenes (aka game screens, i.e. menus, levels etc)
-    SceneManager* scenemanager = new SceneManager();
-    scenemanager->Start();
-
     Controls* controls = new Controls();
     controls->Start();
 
     FontManager* fontmanager = new FontManager();
     fontmanager->Start();
+
+    // start engine subsystems
+    // SceneManager manages all scenes (aka game screens, i.e. menus, levels etc)
+    SceneManager* scenemanager = new SceneManager();
+    scenemanager->Start();
+
+
+    Scene* s1 = new Scene();
+    scenemanager->PushScene( s1 );
+
+    Object* o1 = new Object();
+    s1->AddObject(o1);
+
+    TextNode* test1 = new TextNode( fontmanager );
+    test1->Create("Ubuntu Mono", 1.0f, 100.0, 200.0, "SceneManager");
+    test1->AttachShader( sm, "font-shader" );
+    test1->Show();
+    o1->AddNode( test1 );
+
+    Object* o2 = new Object();
+    s1->AddObject(o2);
+
+    TextNode* test2 = new TextNode( fontmanager );
+    test2->Create("Ubuntu Mono", 1.0f, 100.0, 300.0, "Label 2");
+    test2->AttachShader( sm, "font-shader" );
+    test2->Show();
+    o2->AddNode( test2 );
+
 
     TextNode tn( fontmanager );
     tn.Create("Ubuntu Mono", 1.0f, 20.0, 580.0, "Frame time:");
@@ -87,6 +112,7 @@ int main() {
         while( accumulator >= delta_time ) {
             // integrate physics here using t and dt
             controls->Update( scenemanager->GetActiveScene() );
+            scenemanager->Update(0.016);
             running = !controls->IsExitState();
             accumulator -= delta_time;
             total_time += delta_time;
@@ -97,6 +123,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
         tn.Draw();
         tt.Draw();
+        scenemanager->Draw();
 
         sm->GetBoundShader()->SetProjectionMatrix( window->GetProjection() );
 
@@ -105,9 +132,9 @@ int main() {
 
     glUseProgram( 0 );
 
+    scenemanager->Stop();
     fontmanager->Stop();
     controls->Stop();
-    scenemanager->Stop();
     sm->Stop();
     window->Stop();
 
