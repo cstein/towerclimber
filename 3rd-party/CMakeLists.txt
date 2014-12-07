@@ -12,11 +12,11 @@ add_subdirectory(lodepng)
 set(LODEPNG_LIBRARIES lodepng PARENT_SCOPE)
 
 # options for bullet3
-set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared library of")
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared library off.")
 set(BUILD_UNIT_TESTS OFF CACHE BOOL "Do not build unit tests for bullet.")
-set(BUILD_BULLET2_DEMOS OFF CACHE BOOL "no bullet2 demos")
-set(BUILD_CPU_DEMOS OFF CACHE BOOL "no bullet demos")
-set(BUILD_BULLET3 OFF CACHE BOOL "no bullet 3")
+set(BUILD_BULLET2_DEMOS OFF CACHE BOOL "no bullet2 demos.")
+set(BUILD_CPU_DEMOS OFF CACHE BOOL "no bullet demos.")
+set(BUILD_BULLET3 OFF CACHE BOOL "no bullet 3.")
 add_subdirectory(bullet3)
 set(BULLET_LIBRARIES ${BULLET_LIBRARIES} PARENT_SCOPE)
 
