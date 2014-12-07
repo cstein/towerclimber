@@ -118,6 +118,11 @@ int main() {
             total_time += delta_time;
         }
 
+        if( total_time > 3000000000L ) {
+            o1->SetDrawable( true );
+            o2->SetDrawable( true );
+        }
+
         //renderer->RenderScene( scenemanager->GetActive() );
         glClearColor( 0.39, 0.58, 0.93, 1.0 );
         glClear(GL_COLOR_BUFFER_BIT);

@@ -33,3 +33,7 @@ void Scene::Draw() {
         }
     }
 }
+
+std::string Scene::GetName() {
+    return _name;
+}

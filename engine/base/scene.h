@@ -2,6 +2,7 @@
 #define __SCENE_H_
 
 #include <vector>
+#include <string>
 
 #include "game/object.h"
 
@@ -28,11 +29,14 @@ public:
     Scene();
     ~Scene();
 
-    void AddObject(Object* o);
+    virtual void AddObject(Object* o);
 
-    void Update( double dt );
-    void Draw();
+    virtual void Update( double dt );
+    virtual void Draw();
+
+    virtual std::string GetName();
 protected:
+    std::string _name;
     std::vector<Object*> _objects;
 };
 
