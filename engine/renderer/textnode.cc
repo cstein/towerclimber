@@ -16,7 +16,7 @@ TextNode::~TextNode() {
     }
 }
 
-void TextNode::Draw() {
+void TextNode::OnDraw() {
     if (!_isvisible)
         return;
 
@@ -168,6 +168,10 @@ void TextNode::SetText( std::string text ) {
 }
 
 void TextNode::UpdateText( std::string text ) {
+    if (_isdrawing == true) {
+        return;
+    }
+
     if (_text.compare( text ) == 0)
         return;
 

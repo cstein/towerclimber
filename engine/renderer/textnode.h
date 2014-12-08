@@ -11,7 +11,6 @@ class TextNode: public RenderNode {
 public:
     TextNode(FontManager* fontmanager);
     ~TextNode();
-    virtual void Draw();
     void Create(std::string fontname, float scale, float x, float y, std::string text);
     void UpdateText( std::string text );
 private:
@@ -25,6 +24,8 @@ private:
     void SetFontName( std::string fontname );
     void SetText( std::string text );
     void CreateVBO();
+
+    virtual void OnDraw();
 };
 
 #endif
