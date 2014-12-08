@@ -8,6 +8,7 @@ RenderNode::RenderNode() {
     _x0 = 0.0f;
     _y0 = 0.0f;
     _isvisible = true;
+    _isdrawing = false;
     _vao = 0;
 
     // vertex attribute locations are set when they are used and made active
@@ -41,8 +42,9 @@ RenderNode::~RenderNode() {
 }
 
 void RenderNode::Draw() {
-    // All subclassed nodes must call the shadermanager and bind
-    // the appropriate shader
+    OnBeforeDraw();
+    OnDraw();
+    OnAfterDraw();
 }
 
 void RenderNode::Update( double dt ) {
@@ -75,4 +77,16 @@ void RenderNode::DestroyVAO() {
 void RenderNode::AttachShader( ShaderManager* sm, std::string shadername ) {
     _shadermanager = sm;
     _shadername = shadername;
+}
+
+void RenderNode::OnBeforeDraw() {
+    _isdrawing = true;
+}
+
+void RenderNode::OnDraw() {
+
+}
+
+void RenderNode::OnAfterDraw() {
+    _isdrawing = false;
 }

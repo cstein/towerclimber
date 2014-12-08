@@ -28,6 +28,9 @@ public:
      */
     virtual void AttachShader( ShaderManager* sm, std::string shadername );
 
+    /* Draw calls three functions where subclasses normally
+     * only ever update OnDraw()
+     */
     virtual void Draw();
     virtual void Update( double dt );
 
@@ -66,6 +69,16 @@ protected:
 
     std::string _shadername;
     ShaderManager* _shadermanager;
+
+    /*
+     * Drawing related functions and variables
+     *
+     *   no update of objects in a rendernode can take place when rendering
+     */
+    bool _isdrawing;
+    void OnBeforeDraw();
+    void OnDraw();
+    void OnAfterDraw();
 };
 
 #endif
