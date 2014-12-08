@@ -76,9 +76,9 @@ protected:
      *   no update of objects in a rendernode can take place when rendering
      */
     bool _isdrawing;
-    void OnBeforeDraw();
-    void OnDraw();
-    void OnAfterDraw();
+    virtual void OnBeforeDraw();
+    virtual void OnDraw();
+    virtual void OnAfterDraw();
 };
 
 #endif
