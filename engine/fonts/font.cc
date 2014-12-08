@@ -13,6 +13,10 @@ Font::Font() {
 }
 
 Font::~Font() {
+    if(_textureid != 0) {
+        glDeleteTextures(1, &_textureid);
+        _textureid = 0;
+    }
 }
 
 void Font::SetSize(unsigned int size) {
