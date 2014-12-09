@@ -4,5 +4,6 @@ set(RENDERER_SRC
     renderer/rendernode.cc
     renderer/shader.cc
     renderer/shadermanager.cc
+    renderer/splashnode.cc
     renderer/textnode.cc
     )
