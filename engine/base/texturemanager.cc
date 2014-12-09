@@ -83,6 +83,11 @@ GLuint TextureManager::GetTextureID( std::string texturename ) {
 
 bool TextureManager::UnloadTexture( std::string texturename ) {
     if (HasTexture( texturename )) {
+        // if the current texture is bound, unbind it before deletion.
+        if (_boundtexture == _textures[texturename]) {
+            _boundtexture = 0;
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
         glDeleteTextures(1, &_textures[texturename]);
         _textures.erase(texturename);
         return true;
