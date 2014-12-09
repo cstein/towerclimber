@@ -21,7 +21,9 @@ public:
     bool HasTexture( std::string texturename );
     bool LoadTexture( std::string texturename );
     void BindTexture( std::string texturename );
+    bool UnloadTexture( std::string texturename );
     GLuint GetBoundTexture();
+    unsigned int GetNumLoadedTextures() { return _textures.size(); }
 private:
     GLuint _boundtexture;
     std::map<std::string, GLuint> _textures;

@@ -6,6 +6,7 @@
 
 TextureManager::TextureManager() {
     el::Logger* TextureManagerLogger = el::Loggers::getLogger("TextureManager");
+    _boundtexture = 0;
 }
 
 TextureManager::~TextureManager() {
@@ -25,25 +26,31 @@ bool TextureManager::HasTexture( std::string texturename ) {
 }
 
 bool TextureManager::LoadTexture( std::string texturename ) {
-    bool success = false;
-    if (LoadPNG( "resources/graphics/" + texturename + ".png" )) {
-        success = CreateTexture( texturename );
-        _image.clear(); // will sometimes crash - perhaps the uploading to GFX is not complete.
-        //CLOG(INFO, "TextureManager") << "le id: " << glGetError();
-    }
-    return success;
+    if (HasTexture( texturename ))
+        return true;
+
+    if (LoadPNG( "resources/graphics/" + texturename + ".png" ))
+        return CreateTexture( texturename );
+
+    return false;
 }
 
 void TextureManager::BindTexture(std::string texturename) {
-
+    if (HasTexture(texturename)) {
+        if (_boundtexture != _textures[texturename]) {
+            _boundtexture = _textures[texturename];
+        }
+        glBindTexture(GL_TEXTURE_2D, _boundtexture);
+    }
 }
 
 GLuint TextureManager::GetBoundTexture() {
-    return 0;
+    return _boundtexture;
 }
 
 bool TextureManager::LoadPNG( std::string texturename ) {
     CLOG(INFO, "TextureManager") << "Loading '" << texturename << "'.";
+    _image.clear();
     unsigned int error = lodepng::decode(_image, _imagewidth, _imageheight, texturename.c_str());
     if (error != 0) {
         CLOG(ERROR, "TextureManager") << lodepng_error_text(error);
@@ -70,7 +77,15 @@ GLuint TextureManager::GetTextureID( std::string texturename ) {
     if (it != _textures.end()) {
         return it->second;
     } else {
-        CLOG(ERROR, "TextureManager") << "Texture '" << texturename << "' not found.";
         return 0;
     }
+}
+
+bool TextureManager::UnloadTexture( std::string texturename ) {
+    if (HasTexture( texturename )) {
+        glDeleteTextures(1, &_textures[texturename]);
+        _textures.erase(texturename);
+        return true;
+    }
+    return false;
 }
