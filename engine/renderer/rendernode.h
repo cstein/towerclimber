@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 
 #include "base/node.h"
+#include "base/texturemanager.h"
 #include "renderer/shadermanager.h"
 
 
@@ -27,6 +28,13 @@ public:
     /* Attaches a shader to the RenderNode.
      */
     virtual void AttachShader( ShaderManager* sm, std::string shadername );
+
+    /* Attaches a texturemanager to the node.
+     *
+     * it is the responsibility of subclasses of RenderNode to
+     * actually load the they need.
+     */
+    virtual void AttachTextureManager( TextureManager* tm );
 
     /* Draw calls three functions where subclasses normally
      * only ever update OnDraw()
@@ -69,6 +77,8 @@ protected:
 
     std::string _shadername;
     ShaderManager* _shadermanager;
+
+    TextureManager* _texturemanager;
 
     /*
      * Drawing related functions and variables
