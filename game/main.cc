@@ -46,7 +46,7 @@ int main() {
 
     TextureManager* texturemanager = new TextureManager();
     texturemanager->Start();
-    texturemanager->LoadTexture("testtexture");
+    texturemanager->LoadTexture("welogo");
 
 
     Scene* s1 = new Scene();
@@ -83,7 +83,7 @@ int main() {
     SplashNode sn;
     sn.AttachShader(sm, "splash-shader");
     sn.AttachTextureManager( texturemanager );
-    sn.Create("testtexture");
+    sn.Create("welogo");
     sn.Show();
 
     long total_time = 0L;
@@ -135,7 +135,8 @@ int main() {
         }
 
         //renderer->RenderScene( scenemanager->GetActive() );
-        glClearColor( 0.39, 0.58, 0.93, 1.0 );
+        //glClearColor( 0.39, 0.58, 0.93, 1.0 );
+        glClearColor( 0.0, 0.0, 0.0, 1.0 );
         glClear(GL_COLOR_BUFFER_BIT);
 
         sm->SetProjectionMatrix( window->GetProjection() );
