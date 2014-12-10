@@ -9,6 +9,7 @@
 
 #include "jsonxx/jsonxx.h"
 #include "pugixml/src/pugixml.hpp"
+#include <Eigen/Core>
 
 class ShaderManager: public Manager {
 public:
@@ -22,11 +23,18 @@ public:
     const inline GLuint GetBoundShaderID() { return _currentshaderid; }
     Shader* GetBoundShader() { return _currentshader; }
     bool BindShader( std::string shadername );
+
+    /*
+     * Uniform variable updates
+     */
+    void SetProjectionMatrix( Eigen::Matrix4f P );
 private:
     GLuint _currentshaderid;
     Shader* _currentshader;
     jsonxx::Object _configuration;
     std::map<std::string, Shader> _shaders;
+
+    Eigen::Matrix4f _uniform_projection_matrix;
 };
 
 #endif

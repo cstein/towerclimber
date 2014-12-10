@@ -119,7 +119,7 @@ void TextNode::SetText( std::string text ) {
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->u;
-        _uvcoordinates.back().y = uvmap->v;
+        _uvcoordinates.back().y = uvmap->t;
 
         _vertices.push_back( Vertex2D() );
         _vertices.back().x = _x + _scale*((float)rect->ox);
@@ -127,7 +127,7 @@ void TextNode::SetText( std::string text ) {
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->u;
-        _uvcoordinates.back().y = uvmap->t;
+        _uvcoordinates.back().y = uvmap->v;
 
         _vertices.push_back( Vertex2D() );
         _vertices.back().x = _x + _scale*((float)rect->ox + (float)rect->w);
@@ -135,7 +135,7 @@ void TextNode::SetText( std::string text ) {
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->s;
-        _uvcoordinates.back().y = uvmap->t;
+        _uvcoordinates.back().y = uvmap->v;
 
         // Second triangle is defined in the following way
         // TL -> BR -> TR
@@ -145,7 +145,7 @@ void TextNode::SetText( std::string text ) {
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->u;
-        _uvcoordinates.back().y = uvmap->v;
+        _uvcoordinates.back().y = uvmap->t;
 
         _vertices.push_back( Vertex2D() );
         _vertices.back().x = _x + _scale*((float)rect->ox + (float)rect->w);
@@ -153,7 +153,7 @@ void TextNode::SetText( std::string text ) {
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->s;
-        _uvcoordinates.back().y = uvmap->t;
+        _uvcoordinates.back().y = uvmap->v;
 
         _vertices.push_back( Vertex2D() );
         _vertices.back().x = _x + _scale*((float)rect->ox + (float)rect->w);
@@ -161,7 +161,7 @@ void TextNode::SetText( std::string text ) {
 
         _uvcoordinates.push_back( Vertex2D() );
         _uvcoordinates.back().x = uvmap->s;
-        _uvcoordinates.back().y = uvmap->v;
+        _uvcoordinates.back().y = uvmap->t;
 
         _x = _x + _scale*((float)rect->ox + (float)rect->w);
     }

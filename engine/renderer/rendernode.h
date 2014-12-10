@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 
 #include "base/node.h"
+#include "base/texturemanager.h"
 #include "renderer/shadermanager.h"
 
 
@@ -28,6 +29,13 @@ public:
      */
     virtual void AttachShader( ShaderManager* sm, std::string shadername );
 
+    /* Attaches a texturemanager to the node.
+     *
+     * it is the responsibility of subclasses of RenderNode to
+     * actually load the they need.
+     */
+    virtual void AttachTextureManager( TextureManager* tm );
+
     /* Draw calls three functions where subclasses normally
      * only ever update OnDraw()
      */
@@ -49,6 +57,7 @@ public:
     virtual void DestroyVAO();
 
     virtual bool HasShaderAttached() { return _shadername != ""; }
+    virtual bool HasTextureManagerAttached() { return _texturemanager != nullptr; }
 
 protected:
     std::vector<Vertex2D> _vertices;
@@ -69,6 +78,8 @@ protected:
 
     std::string _shadername;
     ShaderManager* _shadermanager;
+
+    TextureManager* _texturemanager;
 
     /*
      * Drawing related functions and variables

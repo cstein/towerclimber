@@ -83,6 +83,10 @@ void Shader::SetProjectionMatrix( Eigen::Matrix4f P ) {
     glUniformMatrix4fv( _uniformprojectionmatrix, 1, GL_FALSE, P.data() );
 }
 
+void Shader::SetAlpha( float value ) {
+    glUniform1f( _alpha, value );
+}
+
 void Shader::SetShaderName( std::string name ) {
     _name = name;
 }
@@ -151,6 +155,7 @@ void Shader::SetupShaderLocations() {
     SetupShaderAttribLocation( _position, "vertex_position" );
     SetupShaderAttribLocation( _texcoords, "texcoords" );
     SetupShaderUniformLocation( _uniformprojectionmatrix, "projection" );
+    SetupShaderUniformLocation( _alpha, "alpha" );
 }
 
 void Shader::SetupShaderAttribLocation( GLuint &attrib, std::string attribname ) {

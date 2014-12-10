@@ -21,6 +21,8 @@ RenderNode::RenderNode() {
     _shadername = "";
     _shadermanager = nullptr;
 
+    _texturemanager = nullptr;
+
 }
 
 RenderNode::~RenderNode() {
@@ -89,4 +91,8 @@ void RenderNode::OnDraw() {
 
 void RenderNode::OnAfterDraw() {
     _isdrawing = false;
+}
+
+void RenderNode::AttachTextureManager( TextureManager* tm ) {
+    _texturemanager = tm;
 }

@@ -26,6 +26,7 @@ public:
 
     // Uniforms
     void SetProjectionMatrix( Eigen::Matrix4f P );
+    void SetAlpha( float value );
 private:
     std::string _name;
     std::string _basepath;
@@ -48,6 +49,7 @@ private:
 
     // variables for uniforms
     GLuint _uniformprojectionmatrix;
+    GLuint _alpha;
 };
 
 #endif
