@@ -5,6 +5,7 @@
 
 #include "renderer/shader.h"
 #include "renderer/shadermanager.h"
+#include "renderer/splashnode.h"
 #include "renderer/textnode.h"
 
 #include "game/object.h"
@@ -43,6 +44,10 @@ int main() {
     SceneManager* scenemanager = new SceneManager();
     scenemanager->Start();
 
+    TextureManager* texturemanager = new TextureManager();
+    texturemanager->Start();
+    texturemanager->LoadTexture("welogo");
+
 
     Scene* s1 = new Scene();
     scenemanager->PushScene( s1 );
@@ -74,6 +79,12 @@ int main() {
     tt.Create("Ubuntu Light", 1.0f, 20.0f, 20.0f, "Testing Casper Steinmann Testing -");
     tt.AttachShader( sm, "font-shader" );
     tt.Show();
+
+    SplashNode sn;
+    sn.AttachShader(sm, "splash-shader");
+    sn.AttachTextureManager( texturemanager );
+    sn.Create("welogo");
+    sn.Show();
 
     long total_time = 0L;
     long delta_time = 16667000L;
@@ -124,19 +135,22 @@ int main() {
         }
 
         //renderer->RenderScene( scenemanager->GetActive() );
-        glClearColor( 0.39, 0.58, 0.93, 1.0 );
+        //glClearColor( 0.39, 0.58, 0.93, 1.0 );
+        glClearColor( 0.0, 0.0, 0.0, 1.0 );
         glClear(GL_COLOR_BUFFER_BIT);
+
+        sm->SetProjectionMatrix( window->GetProjection() );
+
+        sn.Draw();
         tn.Draw();
         tt.Draw();
-        scenemanager->Draw();
-
-        sm->GetBoundShader()->SetProjectionMatrix( window->GetProjection() );
 
         window->Swap();
     }
 
     glUseProgram( 0 );
 
+    texturemanager->Stop();
     scenemanager->Stop();
     fontmanager->Stop();
     controls->Stop();

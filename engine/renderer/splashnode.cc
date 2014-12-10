@@ -2,7 +2,9 @@
 
 #include "easyloggingpp/src/easylogging++.h"
 
-SplashNode::SplashNode() {
+SplashNode::SplashNode()
+    : RenderNode()
+{
 }
 
 SplashNode::~SplashNode() {
@@ -19,8 +21,9 @@ void SplashNode::OnDraw() {
         return;
 
     _shadermanager->BindShader( _shadername );
+    _shadermanager->GetBoundShader()->SetAlpha(1.0);
 
-    //this->BindTexture();
+    _texturemanager->BindTexture( _texturename );
 
     if (_vao != 0) {
         glBindVertexArray( _vao );
@@ -56,7 +59,6 @@ void SplashNode::CreateVBO() {
 void SplashNode::Create(std::string texturename) {
 
     _texturename = texturename;
-    CreateVBO();
 
     // now we generate the quad
     // 1 quad = 2 triangles = 6 vertices
@@ -65,53 +67,62 @@ void SplashNode::Create(std::string texturename) {
     //
     // First triangle is defined in the following way
     // TL -> BL -> BR
+    float x = 200.0;
+    float y = 100.0;
+    float w = 400.0;
+    float h = 400.0;
+
     _vertices.push_back( Vertex2D() );
-    _vertices.back().x = 200.0f;
-    _vertices.back().y = 400.0f;
+    _vertices.back().x = x;
+    _vertices.back().y = y + h;
+
+    _uvcoordinates.push_back( Vertex2D() );
+    _uvcoordinates.back().x = 0.0f;
+    _uvcoordinates.back().y = 0.0f;
+
+    _vertices.push_back( Vertex2D() );
+    _vertices.back().x = x;
+    _vertices.back().y = y;
 
     _uvcoordinates.push_back( Vertex2D() );
     _uvcoordinates.back().x = 0.0f;
     _uvcoordinates.back().y = 1.0f;
 
     _vertices.push_back( Vertex2D() );
-    _vertices.back().x = 200.0f;
-    _vertices.back().y = 200.0f;
-
-    _uvcoordinates.push_back( Vertex2D() );
-    _uvcoordinates.back().x = 0.0f;
-    _uvcoordinates.back().y = 0.0f;
-
-    _vertices.push_back( Vertex2D() );
-    _vertices.back().x = 400.0f;
-    _vertices.back().y = 200.0f;
+    _vertices.back().x = x + w;
+    _vertices.back().y = y;
 
     _uvcoordinates.push_back( Vertex2D() );
     _uvcoordinates.back().x = 1.0f;
-    _uvcoordinates.back().y = 0.0f;
+    _uvcoordinates.back().y = 1.0f;
+
 
     // Second triangle is defined in the following way
     // TL -> BR -> TR
     _vertices.push_back( Vertex2D() );
-    _vertices.back().x = 200.0f;
-    _vertices.back().y = 400.0f;
+    _vertices.back().x = x;
+    _vertices.back().y = y + h;
 
     _uvcoordinates.push_back( Vertex2D() );
     _uvcoordinates.back().x = 0.0f;
+    _uvcoordinates.back().y = 0.0f;
+
+    _vertices.push_back( Vertex2D() );
+    _vertices.back().x = x + w;
+    _vertices.back().y = y;
+
+    _uvcoordinates.push_back( Vertex2D() );
+    _uvcoordinates.back().x = 1.0f;
     _uvcoordinates.back().y = 1.0f;
 
     _vertices.push_back( Vertex2D() );
-    _vertices.back().x = 400.0f; 
-    _vertices.back().y = 200.0f;
+    _vertices.back().x = x + w;
+    _vertices.back().y = y + h;
 
     _uvcoordinates.push_back( Vertex2D() );
     _uvcoordinates.back().x = 1.0f;
     _uvcoordinates.back().y = 0.0f;
 
-    _vertices.push_back( Vertex2D() );
-    _vertices.back().x = 400.0f;
-    _vertices.back().y = 400.0f;
 
-    _uvcoordinates.push_back( Vertex2D() );
-    _uvcoordinates.back().x = 1.0f;
-    _uvcoordinates.back().y = 1.0f;
+    CreateVBO();
 }

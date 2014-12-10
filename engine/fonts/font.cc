@@ -138,9 +138,9 @@ void Font::CreateUVMap() {
         h = ((float)cr->y + (float)cr->h) / height;
         _uvmap[ it->first ] = CharacterUV();
         _uvmap[ it->first ].u = x;
-        _uvmap[ it->first ].v = y;
+        _uvmap[ it->first ].v = h;
         _uvmap[ it->first ].s = w;
-        _uvmap[ it->first ].t = h;
+        _uvmap[ it->first ].t = y;
         //CLOG(INFO, "Font") << "CMAP: '" << it->first << "' " << x << ", " << y << ", " << w << ", " << h;
     }
 }
