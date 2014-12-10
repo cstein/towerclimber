@@ -62,6 +62,7 @@ bool TextureManager::LoadPNG( std::string texturename ) {
 bool TextureManager::CreateTexture( std::string texturename ) {
     _textures[texturename] = 0;
     glGenTextures(1, &_textures[texturename]);
+    glBindTexture(GL_TEXTURE_2D, _textures[texturename]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _imagewidth, _imageheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, &_image[0]);
