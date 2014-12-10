@@ -57,6 +57,7 @@ public:
     virtual void DestroyVAO();
 
     virtual bool HasShaderAttached() { return _shadername != ""; }
+    virtual bool HasTextureManagerAttached() { return _texturemanager != nullptr; }
 
 protected:
     std::vector<Vertex2D> _vertices;

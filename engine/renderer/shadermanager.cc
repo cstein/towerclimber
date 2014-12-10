@@ -88,8 +88,14 @@ bool ShaderManager::BindShader( std::string shadername ) {
     if (s->GetID() != _currentshaderid) {
         _currentshaderid = s->GetID();
         _currentshader = s;
-        return s->Use(); // actually bind the shader
+        if (s->Use()) {
+            s->SetProjectionMatrix( _uniform_projection_matrix );
+        }
     }
 
     return true;
+}
+
+void ShaderManager::SetProjectionMatrix( Eigen::Matrix4f P ) {
+    _uniform_projection_matrix = P;
 }

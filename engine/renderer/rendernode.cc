@@ -21,6 +21,8 @@ RenderNode::RenderNode() {
     _shadername = "";
     _shadermanager = nullptr;
 
+    _texturemanager = nullptr;
+
 }
 
 RenderNode::~RenderNode() {

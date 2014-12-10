@@ -2,7 +2,9 @@
 
 #include "easyloggingpp/src/easylogging++.h"
 
-SplashNode::SplashNode() {
+SplashNode::SplashNode()
+    : RenderNode()
+{
 }
 
 SplashNode::~SplashNode() {
@@ -18,9 +20,11 @@ void SplashNode::OnDraw() {
     if (!HasShaderAttached())
         return;
 
-    _shadermanager->BindShader( _shadername );
+    if (!_shadermanager->BindShader( _shadername )) {
+        std::cout << "nooo" << std::endl;
+    }
 
-    //this->BindTexture();
+    _texturemanager->BindTexture( _texturename );
 
     if (_vao != 0) {
         glBindVertexArray( _vao );
@@ -56,7 +60,6 @@ void SplashNode::CreateVBO() {
 void SplashNode::Create(std::string texturename) {
 
     _texturename = texturename;
-    CreateVBO();
 
     // now we generate the quad
     // 1 quad = 2 triangles = 6 vertices
@@ -114,4 +117,6 @@ void SplashNode::Create(std::string texturename) {
     _uvcoordinates.push_back( Vertex2D() );
     _uvcoordinates.back().x = 1.0f;
     _uvcoordinates.back().y = 1.0f;
+
+    CreateVBO();
 }
