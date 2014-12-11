@@ -28,6 +28,7 @@ public:
      * Uniform variable updates
      */
     void SetProjectionMatrix( Eigen::Matrix4f P );
+    void SetAlpha( float value );
 private:
     GLuint _currentshaderid;
     Shader* _currentshader;
@@ -35,6 +36,7 @@ private:
     std::map<std::string, Shader> _shaders;
 
     Eigen::Matrix4f _uniform_projection_matrix;
+    float _uniform_alpha;
 };
 
 #endif

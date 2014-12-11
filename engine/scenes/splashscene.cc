@@ -1,13 +1,23 @@
 #include "splashscene.h"
 
+#include "base/faders.h"
+
 SplashScene::SplashScene(TextureManager* texturemanager, std::string texturename, ShaderManager* shadermanager, std::string shadername, double lifetime)
 : Scene() {
     _texturemanager = texturemanager;
     _texturename = texturename;
     _shadermanager = shadermanager;
     _shadername = shadername;
+
+    // timers that are constant. Perhaps this should be an object!
     _lifetime = lifetime;
+    _steptime = lifetime / FADERSTEPS;
+
+    // this that change over time
     _currenttime = lifetime;
+    _currentsteptime = 0.0f;
+    _currentstep = 0;
+
 
     texturemanager->LoadTexture( texturename );
 
@@ -42,6 +52,12 @@ SplashScene::~SplashScene() {
 void SplashScene::Update( double dt ) {
     if(!_isdead) {
         _currenttime -= dt;
+        _currentsteptime += dt;
+        if (_currentsteptime >= _steptime) {
+            _currentstep += 1;
+            _currentsteptime -= _steptime;
+            _shadermanager->SetAlpha( FO_FERMIDIRAC[_currentstep-1] );
+        }
         if (_currenttime < 0.0f) {
             _isdead = true;
         }

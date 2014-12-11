@@ -28,6 +28,10 @@ protected:
 
     double _lifetime;
     double _currenttime;
+
+    double _steptime;
+    double _currentsteptime;
+    int _currentstep = 0;
 };
 
 #endif
