@@ -14,18 +14,20 @@
 
 class SplashScene: public Scene {
 public:
-    SplashScene(TextureManager* texturemanager, std::string texturename, ShaderManager* shadermanager, std::string shadername, float lifetime);
+    SplashScene(TextureManager* texturemanager, std::string texturename, ShaderManager* shadermanager, std::string shadername, double lifetime);
     ~SplashScene();
+
+    virtual void Update( double dt );
 protected:
     ShaderManager* _shadermanager;
     std::string _shadername;
     TextureManager* _texturemanager;
     std::string _texturename;
-    std::string _lifetime;
-
-
     Object* splashobject;
     SplashNode* splashnode;
+
+    double _lifetime;
+    double _currenttime;
 };
 
 #endif

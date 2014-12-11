@@ -51,8 +51,14 @@ void SceneManager::PushScene(Scene* s) {
 }
 
 void SceneManager::Update( double dt ) {
-    if (!_scenes.empty())
-        GetActiveScene()->Update( dt );
+    if (!_scenes.empty()) {
+        if (GetActiveScene()->IsDead()) {
+            PopScene();
+            // here one could do something with the popped Scene
+        }
+        if (GetActiveScene() != nullptr)
+            GetActiveScene()->Update( dt );
+    }
 }
 
 void SceneManager::Draw() {

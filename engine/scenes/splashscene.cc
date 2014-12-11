@@ -1,11 +1,13 @@
 #include "splashscene.h"
 
-SplashScene::SplashScene(TextureManager* texturemanager, std::string texturename, ShaderManager* shadermanager, std::string shadername, float lifetime) {
+SplashScene::SplashScene(TextureManager* texturemanager, std::string texturename, ShaderManager* shadermanager, std::string shadername, double lifetime)
+: Scene() {
     _texturemanager = texturemanager;
     _texturename = texturename;
     _shadermanager = shadermanager;
     _shadername = shadername;
     _lifetime = lifetime;
+    _currenttime = lifetime;
 
     texturemanager->LoadTexture( texturename );
 
@@ -35,4 +37,13 @@ SplashScene::~SplashScene() {
     _texturemanager = nullptr;
 
     _shadermanager = nullptr;
+}
+
+void SplashScene::Update( double dt ) {
+    if(!_isdead) {
+        _currenttime -= dt;
+        if (_currenttime < 0.0f) {
+            _isdead = true;
+        }
+    }
 }

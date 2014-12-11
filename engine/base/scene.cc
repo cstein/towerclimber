@@ -1,7 +1,7 @@
 #include "scene.h"
 
 Scene::Scene() {
-
+    _isdead = false;
 }
 
 Scene::~Scene() {

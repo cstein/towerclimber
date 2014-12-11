@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "manager.h"
-#include "scene.h"
+#include "base/scene.h"
 
 /*
  * The SceneManager is responsible for creating all scenes for a game

@@ -49,8 +49,12 @@ int main() {
     TextureManager* texturemanager = new TextureManager();
     texturemanager->Start();
     texturemanager->LoadTexture("welogo");
+    texturemanager->LoadTexture("testtexture");
 
-    SplashScene* ss = new SplashScene(texturemanager, "welogo", sm, "splash-shader", 5.0f);
+    SplashScene* s2 = new SplashScene(texturemanager, "testtexture", sm, "splash-shader", 5000.0f);
+    scenemanager->PushScene( s2 );
+
+    SplashScene* ss = new SplashScene(texturemanager, "welogo", sm, "splash-shader", 5000.0f);
     scenemanager->PushScene( ss );
 
 
@@ -100,7 +104,7 @@ int main() {
         while( accumulator >= delta_time ) {
             // integrate physics here using t and dt
             controls->Update( scenemanager->GetActiveScene() );
-            scenemanager->Update(0.016f);
+            scenemanager->Update(16.667f);
             running = !controls->IsExitState();
             accumulator -= delta_time;
             total_time += delta_time;
