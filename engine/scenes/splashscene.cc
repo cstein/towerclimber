@@ -56,7 +56,7 @@ void SplashScene::Update( double dt ) {
         if (_currentsteptime >= _steptime) {
             _currentstep += 1;
             _currentsteptime -= _steptime;
-            _shadermanager->SetAlpha( FO_LIN[_currentstep-1] );
+            _shadermanager->SetAlpha( FO_COS[_currentstep-1] );
         }
         if (_currenttime < 0.0f) {
             _isdead = true;
