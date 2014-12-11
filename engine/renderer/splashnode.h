@@ -3,7 +3,6 @@
 
 #include <string>
 
-#include "renderer/shadermanager.h"
 #include "renderer/rendernode.h"
 
 class SplashNode: public RenderNode {

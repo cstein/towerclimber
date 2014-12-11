@@ -9,6 +9,7 @@ ShaderManager::ShaderManager() {
     el::Logger* FontLogger = el::Loggers::getLogger("Shader");
     _currentshaderid = 0;
     _currentshader = nullptr;
+    _uniform_alpha = 1.0f;
 }
 
 ShaderManager::~ShaderManager() {
@@ -31,7 +32,7 @@ void ShaderManager::Start() {
         if ( _configuration.parse( buffer ) ) {
             CLOG(INFO, "ShaderManager") << "Configuration loaded.";
             shaders = _configuration.get<jsonxx::Array>("shaders");
-            CLOG(INFO, "ShaderManager") <<  "Found " << shaders.size() << " shader.";
+            CLOG(INFO, "ShaderManager") <<  "Found " << shaders.size() << " shader(s).";
             for( int i=0; i<shaders.size(); i++) {
                 shadername = shaders.get<jsonxx::String>(i);
                 if ( _configuration.has<jsonxx::Object>( shadername ) ){
@@ -90,6 +91,7 @@ bool ShaderManager::BindShader( std::string shadername ) {
         _currentshader = s;
         if (s->Use()) {
             s->SetProjectionMatrix( _uniform_projection_matrix );
+            s->SetAlpha( _uniform_alpha );
         }
     }
 
@@ -98,4 +100,8 @@ bool ShaderManager::BindShader( std::string shadername ) {
 
 void ShaderManager::SetProjectionMatrix( Eigen::Matrix4f P ) {
     _uniform_projection_matrix = P;
+}
+
+void ShaderManager::SetAlpha( float value ) {
+    _uniform_alpha = value;
 }

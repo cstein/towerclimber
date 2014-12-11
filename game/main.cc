@@ -8,6 +8,8 @@
 #include "renderer/splashnode.h"
 #include "renderer/textnode.h"
 
+#include "scenes/splashscene.h"
+
 #include "game/object.h"
 
 #include <stdio.h>
@@ -47,28 +49,13 @@ int main() {
     TextureManager* texturemanager = new TextureManager();
     texturemanager->Start();
     texturemanager->LoadTexture("welogo");
+    texturemanager->LoadTexture("testtexture");
 
+    SplashScene* s2 = new SplashScene(texturemanager, "testtexture", sm, "splash-shader", 5000.0f);
+    scenemanager->PushScene( s2 );
 
-    Scene* s1 = new Scene();
-    scenemanager->PushScene( s1 );
-
-    Object* o1 = new Object();
-    s1->AddObject(o1);
-
-    TextNode* test1 = new TextNode( fontmanager );
-    test1->Create("Ubuntu Mono", 1.0f, 100.0, 200.0, "SceneManager");
-    test1->AttachShader( sm, "font-shader" );
-    test1->Show();
-    o1->AddNode( test1 );
-
-    Object* o2 = new Object();
-    s1->AddObject(o2);
-
-    TextNode* test2 = new TextNode( fontmanager );
-    test2->Create("Ubuntu Mono", 1.0f, 100.0, 300.0, "Label 2");
-    test2->AttachShader( sm, "font-shader" );
-    test2->Show();
-    o2->AddNode( test2 );
+    SplashScene* ss = new SplashScene(texturemanager, "welogo", sm, "splash-shader", 5000.0f);
+    scenemanager->PushScene( ss );
 
 
     TextNode tn( fontmanager );
@@ -79,12 +66,6 @@ int main() {
     tt.Create("Ubuntu Light", 1.0f, 20.0f, 20.0f, "Testing Casper Steinmann Testing -");
     tt.AttachShader( sm, "font-shader" );
     tt.Show();
-
-    SplashNode sn;
-    sn.AttachShader(sm, "splash-shader");
-    sn.AttachTextureManager( texturemanager );
-    sn.Create("welogo");
-    sn.Show();
 
     long total_time = 0L;
     long delta_time = 16667000L;
@@ -123,25 +104,20 @@ int main() {
         while( accumulator >= delta_time ) {
             // integrate physics here using t and dt
             controls->Update( scenemanager->GetActiveScene() );
-            scenemanager->Update(0.016);
+            scenemanager->Update(16.667f);
             running = !controls->IsExitState();
             accumulator -= delta_time;
             total_time += delta_time;
         }
 
-        if( total_time > 3000000000L ) {
-            o1->SetDrawable( true );
-            o2->SetDrawable( true );
-        }
-
-        //renderer->RenderScene( scenemanager->GetActive() );
         //glClearColor( 0.39, 0.58, 0.93, 1.0 );
         glClearColor( 0.0, 0.0, 0.0, 1.0 );
         glClear(GL_COLOR_BUFFER_BIT);
 
         sm->SetProjectionMatrix( window->GetProjection() );
 
-        sn.Draw();
+        scenemanager->Draw();
+
         tn.Draw();
         tt.Draw();
 

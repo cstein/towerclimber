@@ -21,7 +21,6 @@ void SplashNode::OnDraw() {
         return;
 
     _shadermanager->BindShader( _shadername );
-    _shadermanager->GetBoundShader()->SetAlpha(1.0);
 
     _texturemanager->BindTexture( _texturename );
 

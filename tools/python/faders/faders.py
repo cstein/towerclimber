@@ -36,7 +36,7 @@ import math
 # evaluation region
 minx = 0.0
 maxx = 5.0
-delta = 0.1
+delta = 0.05
 
 # constants used in the formulas. see specific formulas for precise use.
 fd_a = 4.0
@@ -45,7 +45,7 @@ cos_a = maxx - minx
 lin_a = cos_a
 
 # print format for numbers
-floatformat = "{0:6.3f}f,"
+floatformat = "{0:12.8f}f,"
 
 
 X = numpy.arange(minx, maxx+delta, delta)

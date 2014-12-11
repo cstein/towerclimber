@@ -35,7 +35,13 @@ public:
     virtual void Draw();
 
     virtual std::string GetName();
+
+    /*
+     * if a Scene is dead, it should be popped from the stack
+     */
+    virtual bool IsDead() { return _isdead; }
 protected:
+    bool _isdead;
     std::string _name;
     std::vector<Object*> _objects;
 };
