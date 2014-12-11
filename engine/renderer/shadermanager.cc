@@ -31,7 +31,7 @@ void ShaderManager::Start() {
         if ( _configuration.parse( buffer ) ) {
             CLOG(INFO, "ShaderManager") << "Configuration loaded.";
             shaders = _configuration.get<jsonxx::Array>("shaders");
-            CLOG(INFO, "ShaderManager") <<  "Found " << shaders.size() << " shader.";
+            CLOG(INFO, "ShaderManager") <<  "Found " << shaders.size() << " shader(s).";
             for( int i=0; i<shaders.size(); i++) {
                 shadername = shaders.get<jsonxx::String>(i);
                 if ( _configuration.has<jsonxx::Object>( shadername ) ){

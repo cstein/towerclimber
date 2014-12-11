@@ -26,7 +26,7 @@ void FontManager::Start() {
         if (_configuration.parse( buffer )) {
             CLOG(INFO, "FontManager") << "Configuration loaded.";
             fonts = _configuration.get<jsonxx::Array>("fonts");
-            CLOG(INFO, "FontManager") <<  "Found " << fonts.size() << " fonts.";
+            CLOG(INFO, "FontManager") <<  "Found " << fonts.size() << " font(s).";
 
             // now we load the fonts
             for( int i=0; i<fonts.size(); i++) {
