@@ -52,3 +52,6 @@ engine/base/faders.h
 
 # build folders
 build*
+
+# python compiled files
+*.pyc
