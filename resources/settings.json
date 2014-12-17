@@ -1,0 +1,15 @@
+{
+    "settings": ["log", "fonts", "shaders"],
+    "log": {
+        "path": "resources",
+        "name": "logging.conf"
+    },
+    "fonts": {
+        "path": "resources/graphics/fonts",
+        "name": "fonts.json"
+    },
+    "shaders": {
+        "path": "resources/shaders",
+        "name": "shaders.json"
+    }
+}

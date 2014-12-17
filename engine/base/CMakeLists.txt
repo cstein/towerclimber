@@ -9,5 +9,6 @@ set(BASE_SRC
     base/scene.cc
     base/scenemanager.cc
     base/sdlwindow.cc
+    base/settingsmanager.cc
     base/texturemanager.cc
     )

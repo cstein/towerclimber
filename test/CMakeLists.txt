@@ -19,7 +19,10 @@ endmacro()
 simple_test(glwindow)
 simple_test(sdlwindow)
 simple_test(base_scenemanager)
+simple_test(base_settingsmanager)
 simple_test(base_texturemanager)
+
+simple_test(font_fontmanager)
 
 simple_test(renderer_rendernode)
 simple_test(renderer_textnode)

@@ -17,6 +17,8 @@ public:
     virtual void Start();
     virtual void Stop();
     Font* Get( std::string fontname );
+
+    unsigned int GetNumFonts() { return _fonts.size(); }
 private:
     jsonxx::Object _configuration;
     std::map<std::string, Font> _fonts;
