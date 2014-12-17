@@ -21,9 +21,15 @@ protected:
     }
 };
 
-TEST_F(SettingsManagerTest, LoadedSettings) {
+TEST_F(SettingsManagerTest, LoadedSettingsHasSettings) {
     sm->Start();
-    EXPECT_TRUE( sm->HasSettingsPath("fonts" ) );
+    EXPECT_TRUE( sm->HasSettingsPath("fonts") );
+    EXPECT_FALSE( sm->HasSettingsPath("dummy") );
+}
+
+TEST_F(SettingsManagerTest, LoadedSettingsGetSettings) {
+    sm->Start();
+    SettingsPath* s = sm->GetSettingsPath("shaders");
 }
 
 GTEST_API_ int main(int argc, char **argv) {

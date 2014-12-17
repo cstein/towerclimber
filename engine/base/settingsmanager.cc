@@ -68,9 +68,13 @@ bool SettingsManager::LoadSettings() {
 }
 
 bool SettingsManager::HasSettingsPath( std::string name ) {
+    return (GetSettingsPath( name ) != nullptr );
+}
+
+SettingsPath* SettingsManager::GetSettingsPath( std::string name ) {
     std::map<std::string, SettingsPath>::iterator it = _settings.find( name );
     if (it != _settings.end()) {
-        return true;
+        return &(it->second);
     }
-    return false;
+    return nullptr;
 }

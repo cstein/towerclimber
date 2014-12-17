@@ -28,6 +28,7 @@ public:
 
     // Getters
     bool HasSettingsPath(std::string name);
+    SettingsPath* GetSettingsPath(std::string name);
 private:
     bool LoadSettings();
 
