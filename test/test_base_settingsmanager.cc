@@ -30,6 +30,7 @@ TEST_F(SettingsManagerTest, LoadedSettingsHasSettings) {
 TEST_F(SettingsManagerTest, LoadedSettingsGetSettings) {
     sm->Start();
     SettingsPath* s = sm->GetSettingsPath("shaders");
+    EXPECT_EQ( "shaders.json", s->GetName() );
 }
 
 GTEST_API_ int main(int argc, char **argv) {
