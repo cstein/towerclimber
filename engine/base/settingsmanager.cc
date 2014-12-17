@@ -41,7 +41,7 @@ bool SettingsManager::LoadSettings() {
             jsonxx::Array paths = configuration.get<jsonxx::Array>( "settings" );
             for (unsigned char i=0; i < paths.size(); i++) {
                 std::string pathname = paths.get<jsonxx::String>(i);
-
+                CLOG(INFO, "SettingsManager") << "Loading '" << pathname << "'.";
                 if (configuration.has<jsonxx::Object>( pathname )) {
                     _settings[pathname] = SettingsPath();
                     jsonxx::Object path = configuration.get<jsonxx::Object>( pathname );
