@@ -4,7 +4,10 @@
 
 #include "easyloggingpp/src/easylogging++.h"
 
-FontManager::FontManager() {
+FontManager::FontManager( std::string path, std::string name) {
+    _confpath = path;
+    _confname = name;
+
     el::Logger* FontManagerLogger = el::Loggers::getLogger("FontManager");
     el::Logger* FontLogger = el::Loggers::getLogger("Font");
 }
@@ -20,11 +23,12 @@ void FontManager::Start() {
     std::string fontname;
     jsonxx::Array fonts;
     jsonxx::Object font;
-    fontconf.open("resources/graphics/fonts/fonts.json");
+    std::string conffilename = _confpath + "/" + _confname;
+    fontconf.open( conffilename );
     if(fontconf.is_open()) {
         buffer << fontconf.rdbuf();
+
         if (_configuration.parse( buffer )) {
-            CLOG(INFO, "FontManager") << "Configuration loaded.";
             fonts = _configuration.get<jsonxx::Array>("fonts");
             CLOG(INFO, "FontManager") <<  "Found " << fonts.size() << " font(s).";
 

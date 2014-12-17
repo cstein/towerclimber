@@ -10,7 +10,7 @@ TEST(Renderer_TextNode, coordinates) {
     GLWindow window = GLWindow();
     window.Start();
 
-    FontManager* f = new FontManager();
+    FontManager* f = new FontManager("resources/graphics/fonts", "fonts.json");
     f->Start();
 
     ShaderManager* s = new ShaderManager();

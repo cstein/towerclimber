@@ -1,6 +1,8 @@
 #include "base/glwindow.h"
 #include "base/controls.h"
 #include "base/scenemanager.h"
+#include "base/settingsmanager.h"
+
 #include "fonts/fontmanager.h"
 
 #include "renderer/shader.h"
@@ -29,6 +31,9 @@ long get_time_ns() {
 int main() {
     bool running = true;
 
+    SettingsManager* settings = new SettingsManager();
+    settings->Start();
+
     GLWindow* window = new GLWindow();
     window->Start(800, 600);
 
@@ -38,7 +43,7 @@ int main() {
     Controls* controls = new Controls();
     controls->Start();
 
-    FontManager* fontmanager = new FontManager();
+    FontManager* fontmanager = new FontManager("resources/graphics/fonts", "fonts.json");
     fontmanager->Start();
 
     // start engine subsystems
@@ -132,5 +137,5 @@ int main() {
     controls->Stop();
     sm->Stop();
     window->Stop();
-
+    settings->Stop();
 }

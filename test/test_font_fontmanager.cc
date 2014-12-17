@@ -13,7 +13,7 @@ protected:
     FontManager* tm;
 
     void SetUp() {
-        tm = new FontManager();
+        tm = new FontManager("resources/graphics/fonts", "fonts.json");
     }
 
     void TearDown() {

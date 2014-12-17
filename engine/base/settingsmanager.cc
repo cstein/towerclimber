@@ -6,7 +6,7 @@
 #include "easyloggingpp/src/easylogging++.h"
 
 SettingsManager::SettingsManager() {
-    el::Logger* FontManagerLogger = el::Loggers::getLogger("SettingsManager");
+    el::Logger* SettingsManagerLogger = el::Loggers::getLogger("SettingsManager");
 }
 
 SettingsManager::~SettingsManager() {

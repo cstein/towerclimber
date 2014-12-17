@@ -12,7 +12,7 @@
 
 class FontManager: public Manager {
 public:
-    FontManager();
+    FontManager(std::string path, std::string name);
     ~FontManager();
     virtual void Start();
     virtual void Stop();
@@ -20,6 +20,8 @@ public:
 
     unsigned int GetNumFonts() { return _fonts.size(); }
 private:
+    std::string _confpath;
+    std::string _confname;
     jsonxx::Object _configuration;
     std::map<std::string, Font> _fonts;
 };
