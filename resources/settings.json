@@ -11,5 +11,9 @@
     "shaders": {
         "path": "resources/shaders",
         "name": "shaders.json"
+    },
+    "textures": {
+        "path": "resources/graphics",
+        "name": "textures.json"
     }
 }
