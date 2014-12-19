@@ -25,7 +25,7 @@ void ShaderManager::Start() {
     }
 
     if (!_settings->HasSettingsPath("shaders")) {
-        CLOG(ERROR, "ShaderManager") << "Settings for fonts not provided.";
+        CLOG(ERROR, "ShaderManager") << "Settings for shaders not provided.";
         return;
     }
 
