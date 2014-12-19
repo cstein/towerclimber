@@ -13,10 +13,10 @@ TEST(Renderer_TextNode, coordinates) {
     SettingsManager* sm = new SettingsManager();
     sm->Start();
 
-    FontManager* f = new FontManager(sm);
+    FontManager* f = new FontManager( sm );
     f->Start();
 
-    ShaderManager* s = new ShaderManager();
+    ShaderManager* s = new ShaderManager( sm );
     s->Start();
 
     TextNode* t = new TextNode( f );

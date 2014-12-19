@@ -21,8 +21,6 @@ public:
 
     unsigned int GetNumFonts() { return _fonts.size(); }
 private:
-    std::string _confpath;
-    std::string _confname;
     SettingsManager* _settings;
 
     jsonxx::Object _configuration;

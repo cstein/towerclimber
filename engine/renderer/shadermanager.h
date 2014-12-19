@@ -2,6 +2,7 @@
 #define __SHADERMANAGER_H_
 
 #include "base/manager.h"
+#include "base/settingsmanager.h"
 #include "renderer/shader.h"
 
 #include <string>
@@ -13,7 +14,7 @@
 
 class ShaderManager: public Manager {
 public:
-    ShaderManager();
+    ShaderManager( SettingsManager* settings );
     ~ShaderManager();
     virtual void Start();
     virtual void Stop();
@@ -30,6 +31,8 @@ public:
     void SetProjectionMatrix( Eigen::Matrix4f P );
     void SetAlpha( float value );
 private:
+    SettingsManager* _settings;
+
     GLuint _currentshaderid;
     Shader* _currentshader;
     jsonxx::Object _configuration;
