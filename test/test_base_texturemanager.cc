@@ -1,4 +1,5 @@
 #include "base/glwindow.h"
+#include "base/settingsmanager.h"
 #include "base/texturemanager.h"
 #include "gtest/gtest.h"
 #include "easyloggingpp/src/easylogging++.h"
@@ -14,15 +15,22 @@ protected:
     }
 
     TextureManager* tm;
+    SettingsManager* sm;
 
     void SetUp() {
-        tm = new TextureManager();
+        sm = new SettingsManager();
+        sm->Start();
+
+        tm = new TextureManager( sm );
         tm->Start();
     }
 
     void TearDown() {
         tm->Stop();
         delete tm;
+
+        sm->Stop();
+        delete sm;
     }
 };
 

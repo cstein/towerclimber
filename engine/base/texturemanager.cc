@@ -4,8 +4,9 @@
 #include "easyloggingpp/src/easylogging++.h"
 #include "lodepng/lodepng.h"
 
-TextureManager::TextureManager() {
+TextureManager::TextureManager( SettingsManager* settings ) {
     el::Logger* TextureManagerLogger = el::Loggers::getLogger("TextureManager");
+    _settings = settings;
     _boundtexture = 0;
 }
 

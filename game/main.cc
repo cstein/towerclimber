@@ -51,7 +51,7 @@ int main() {
     SceneManager* scenemanager = new SceneManager();
     scenemanager->Start();
 
-    TextureManager* texturemanager = new TextureManager();
+    TextureManager* texturemanager = new TextureManager( settings );
     texturemanager->Start();
     texturemanager->LoadTexture("welogo");
     texturemanager->LoadTexture("testtexture");
