@@ -37,7 +37,7 @@ int main() {
     GLWindow* window = new GLWindow();
     window->Start(800, 600);
 
-    ShaderManager* sm = new ShaderManager();
+    ShaderManager* sm = new ShaderManager( settings );
     sm->Start();
 
     Controls* controls = new Controls();

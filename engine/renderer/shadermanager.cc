@@ -4,12 +4,13 @@
 
 #include "easyloggingpp/src/easylogging++.h"
 
-ShaderManager::ShaderManager() {
+ShaderManager::ShaderManager( SettingsManager* settings ) {
     el::Logger* FontManagerLogger = el::Loggers::getLogger("ShaderManager");
     el::Logger* FontLogger = el::Loggers::getLogger("Shader");
     _currentshaderid = 0;
     _currentshader = nullptr;
     _uniform_alpha = 1.0f;
+    _settings = settings;
 }
 
 ShaderManager::~ShaderManager() {
@@ -18,6 +19,21 @@ ShaderManager::~ShaderManager() {
 }
 
 void ShaderManager::Start() {
+    if (_settings == nullptr) {
+        CLOG(ERROR, "ShaderManager") << "Invalid SettingManager provided.";
+        return;
+    }
+
+    if (!_settings->HasSettingsPath("shaders")) {
+        CLOG(ERROR, "ShaderManager") << "Settings for fonts not provided.";
+        return;
+    }
+
+    SettingsPath* settingspath = _settings->GetSettingsPath("shaders");
+    _confpath = settingspath->GetPath();
+    _confname = settingspath->GetName();
+    std::string conffilename = _confpath + "/" + _confname;
+
     std::ifstream shaderconf;
     std::stringstream buffer;
     std::string shadername;
@@ -26,7 +42,7 @@ void ShaderManager::Start() {
     std::string vertexfilename;
     std::string fragmentfilename;
 
-    shaderconf.open("resources/shaders/shaders.json");
+    shaderconf.open( conffilename );
     if ( shaderconf.is_open() ) {
         buffer << shaderconf.rdbuf();
         if ( _configuration.parse( buffer ) ) {
