@@ -43,7 +43,7 @@ int main() {
     Controls* controls = new Controls();
     controls->Start();
 
-    FontManager* fontmanager = new FontManager("resources/graphics/fonts", "fonts.json");
+    FontManager* fontmanager = new FontManager( settings );
     fontmanager->Start();
 
     // start engine subsystems

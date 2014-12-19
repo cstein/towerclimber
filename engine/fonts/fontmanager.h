@@ -2,6 +2,7 @@
 #define __FONTMANAGER_H_
 
 #include "base/manager.h"
+#include "base/settingsmanager.h"
 #include "fonts/font.h"
 
 #include <string>
@@ -12,7 +13,7 @@
 
 class FontManager: public Manager {
 public:
-    FontManager(std::string path, std::string name);
+    FontManager( SettingsManager* settings );
     ~FontManager();
     virtual void Start();
     virtual void Stop();
@@ -22,6 +23,8 @@ public:
 private:
     std::string _confpath;
     std::string _confname;
+    SettingsManager* _settings;
+
     jsonxx::Object _configuration;
     std::map<std::string, Font> _fonts;
 };

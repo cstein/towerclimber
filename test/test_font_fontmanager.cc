@@ -18,10 +18,7 @@ protected:
 
     void SetUp() {
         sm = new SettingsManager();
-        sm->Start();
-
-        SettingsPath* sp = sm->GetSettingsPath("fonts");
-        tm = new FontManager(sp->GetPath(), sp->GetName());
+        tm = new FontManager( sm );
     }
 
     void TearDown() {
@@ -35,6 +32,7 @@ TEST_F(FontManagerTest, NoLoadedFontsMeansNoBoundFonts) {
 }
 
 TEST_F(FontManagerTest, LoadedFontsMeansBoundFonts) {
+    sm->Start();
     tm->Start();
     EXPECT_EQ(3, tm->GetNumFonts());
 }

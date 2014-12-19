@@ -4,12 +4,11 @@
 
 #include "easyloggingpp/src/easylogging++.h"
 
-FontManager::FontManager( std::string path, std::string name) {
-    _confpath = path;
-    _confname = name;
-
+FontManager::FontManager( SettingsManager* settings ) {
     el::Logger* FontManagerLogger = el::Loggers::getLogger("FontManager");
     el::Logger* FontLogger = el::Loggers::getLogger("Font");
+
+    _settings = settings;
 }
 
 FontManager::~FontManager() {
@@ -18,12 +17,27 @@ FontManager::~FontManager() {
 }
 
 void FontManager::Start() {
+    if (_settings == nullptr) {
+        CLOG(ERROR, "FontManager") << "Invalid SettingManager provided.";
+        return;
+    }
+
+    if (!_settings->HasSettingsPath("fonts")) {
+        CLOG(ERROR, "FontManager") << "Settings for fonts not provided.";
+        return;
+    }
+
+    SettingsPath* settingspath = _settings->GetSettingsPath("fonts");
+    _confpath = settingspath->GetPath();
+    _confname = settingspath->GetName();
+    std::string conffilename = _confpath + "/" + _confname;
+
     std::ifstream fontconf;
     std::stringstream buffer;
     std::string fontname;
     jsonxx::Array fonts;
     jsonxx::Object font;
-    std::string conffilename = _confpath + "/" + _confname;
+
     fontconf.open( conffilename );
     if(fontconf.is_open()) {
         buffer << fontconf.rdbuf();
@@ -52,7 +66,7 @@ void FontManager::Start() {
                 }
             }
         } else {
-             CLOG(ERROR, "FontManager") << "Could not parse .json file." << std::endl;
+             CLOG(ERROR, "FontManager") << "Could not parse '" << conffilename << "'.";
         }
         fontconf.close();
     }
