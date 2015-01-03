@@ -1,0 +1,6 @@
+{
+    "textures": ["SPLASH_WELOGO_01"],
+    "SPLASH_WELOGO_01": {
+        "filename": "welogo.png"
+    }
+}

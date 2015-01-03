@@ -6,11 +6,13 @@
 
 TextureManager::TextureManager( SettingsManager* settings ) {
     el::Logger* TextureManagerLogger = el::Loggers::getLogger("TextureManager");
+    el::Logger* TextureLogger = el::Loggers::getLogger("Texture");
     _settings = settings;
     _boundtexture = 0;
 }
 
 TextureManager::~TextureManager() {
+    el::Loggers::unregisterLogger("Texture");
     el::Loggers::unregisterLogger("TextureManager");
 }
 

@@ -6,4 +6,5 @@ set(RENDERER_SRC
     renderer/shadermanager.cc
     renderer/splashnode.cc
     renderer/textnode.cc
+    renderer/texture.cc
     )
