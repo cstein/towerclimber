@@ -9,6 +9,8 @@
 #include "manager.h"
 #include "base/settingsmanager.h"
 
+#include "jsonxx/jsonxx.h"
+
 /*
  * The TextureManager is loading and binding textures.
  */
@@ -37,6 +39,8 @@ private:
     bool LoadPNG( std::string texturename );
     bool CreateTexture( std::string texturename );
     GLuint GetTextureID( std::string texturename );
+
+    jsonxx::Object _configuration;
 };
 
 #endif

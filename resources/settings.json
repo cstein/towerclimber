@@ -1,5 +1,5 @@
 {
-    "settings": ["log", "fonts", "shaders"],
+    "settings": ["log", "fonts", "shaders", "textures"],
     "log": {
         "path": "resources",
         "name": "logging.conf"

@@ -5,23 +5,54 @@
 #include "lodepng/lodepng.h"
 
 TextureManager::TextureManager( SettingsManager* settings ) {
-    el::Logger* TextureManagerLogger = el::Loggers::getLogger("TextureManager");
-    el::Logger* TextureLogger = el::Loggers::getLogger("Texture");
+    _name = "TextureManager";
     _settings = settings;
     _boundtexture = 0;
 }
 
 TextureManager::~TextureManager() {
-    el::Loggers::unregisterLogger("Texture");
-    el::Loggers::unregisterLogger("TextureManager");
 }
 
 void TextureManager::Start() {
+    el::Logger* TextureManagerLogger = el::Loggers::getLogger(_name);
+    el::Logger* TextureLogger = el::Loggers::getLogger("Texture");
 
+    if (_settings == nullptr) {
+        CLOG(ERROR, _name) << "Invalid SettingsManager provided.";
+        return;
+    }
+
+    if (!_settings->HasSettingsPath("textures")) {
+        CLOG(ERROR, _name) << "Settings for textures not provided.";
+        return;
+    }
+
+    SettingsPath* settingspath = _settings->GetSettingsPath("textures");
+    _confpath = settingspath->GetPath();
+    _confname = settingspath->GetName();
+    std::string conffilename = _confpath + "/" + _confname;
+
+    std::ifstream textureconf;
+    std::stringstream buffer;
+    jsonxx::Array textures;
+
+    textureconf.open( conffilename );
+    if( textureconf.is_open() ) {
+        buffer << textureconf.rdbuf();
+
+        if (_configuration.parse( buffer )) {
+            textures = _configuration.get<jsonxx::Array>("textures");
+            CLOG(INFO, _name) << "Found " << textures.size() << " texture(s).";
+        } else {
+            CLOG(ERROR, _name) << "Could not parse '" << conffilename << "'.";
+        }
+        textureconf.close();
+    }
 }
 
 void TextureManager::Stop() {
-
+    el::Loggers::unregisterLogger("Texture");
+    el::Loggers::unregisterLogger(_name);
 }
 
 bool TextureManager::HasTexture( std::string texturename ) {
@@ -52,11 +83,11 @@ GLuint TextureManager::GetBoundTexture() {
 }
 
 bool TextureManager::LoadPNG( std::string texturename ) {
-    CLOG(INFO, "TextureManager") << "Loading '" << texturename << "'.";
+    CLOG(INFO, _name) << "Loading '" << texturename << "'.";
     _image.clear();
     unsigned int error = lodepng::decode(_image, _imagewidth, _imageheight, texturename.c_str());
     if (error != 0) {
-        CLOG(ERROR, "TextureManager") << lodepng_error_text(error);
+        CLOG(ERROR, _name) << lodepng_error_text(error);
         return false;
     }
     return true;
@@ -88,7 +119,7 @@ GLuint TextureManager::GetTextureID( std::string texturename ) {
 bool TextureManager::UnloadTexture( std::string texturename ) {
     if (HasTexture( texturename )) {
         // if the current texture is bound, unbind it before deletion.
-        CLOG(INFO, "TextureManager") << "Unloading '" << texturename << "'.";
+        CLOG(INFO, _name) << "Unloading '" << texturename << "'.";
         if (_boundtexture == _textures[texturename]) {
             _boundtexture = 0;
             glBindTexture(GL_TEXTURE_2D, 0);
