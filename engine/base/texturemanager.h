@@ -23,24 +23,12 @@ public:
     virtual void Start();
     virtual void Stop();
     bool HasTexture( std::string texturename );
-    bool LoadTexture( std::string texturename );
     void BindTexture( std::string texturename );
-    bool UnloadTexture( std::string texturename );
-    GLuint GetBoundTexture();
-    unsigned int GetNumLoadedTextures() { return _textures.size(); }
+    unsigned int GetNumLoadedTextures() { return _textures2.size(); }
+
+    Texture* GetTexture( std::string texturename );
 private:
     SettingsManager* _settings;
-
-    GLuint _boundtexture;
-    std::map<std::string, GLuint> _textures;
-
-    unsigned int _imagewidth;
-    unsigned int _imageheight;
-    std::vector<unsigned char> _image;
-    bool LoadPNG( std::string texturename );
-    bool CreateTexture( std::string texturename );
-    GLuint GetTextureID( std::string texturename );
-
     jsonxx::Object _configuration;
     std::map<std::string, Texture> _textures2;
 };

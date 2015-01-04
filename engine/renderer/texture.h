@@ -28,6 +28,9 @@ public:
 
     void Destroy();
     bool Load();
+
+    unsigned int GetHeight() {return _height;}
+    unsigned int GetWidth() {return _width;}
 private:
     std::string _name;
     std::string _filename;

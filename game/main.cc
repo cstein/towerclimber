@@ -37,13 +37,16 @@ int main() {
     GLWindow* window = new GLWindow();
     window->Start(800, 600);
 
-    ShaderManager* sm = new ShaderManager( settings );
-    sm->Start();
+    ShaderManager* shadermanager = new ShaderManager( settings );
+    shadermanager->Start();
+
+    TextureManager* texturemanager = new TextureManager( settings );
+    texturemanager->Start();
 
     Controls* controls = new Controls();
     controls->Start();
 
-    FontManager* fontmanager = new FontManager( settings );
+    FontManager* fontmanager = new FontManager( settings, texturemanager );
     fontmanager->Start();
 
     // start engine subsystems
@@ -51,25 +54,25 @@ int main() {
     SceneManager* scenemanager = new SceneManager();
     scenemanager->Start();
 
-    TextureManager* texturemanager = new TextureManager( settings );
-    texturemanager->Start();
     //texturemanager->LoadTexture("welogo");
     //texturemanager->LoadTexture("testtexture");
 
-    //SplashScene* s2 = new SplashScene(texturemanager, "testtexture", sm, "splash-shader", 5000.0f);
+    //SplashScene* s2 = new SplashScene(texturemanager, "testtexture", shadermanager, "splash-shader", 5000.0f);
     //scenemanager->PushScene( s2 );
 
-    SplashScene* ss = new SplashScene(texturemanager, "SPLASH_WELOGO_01", sm, "splash-shader", 5000.0f);
+    SplashScene* ss = new SplashScene(texturemanager, "SPLASH_WELOGO_01", shadermanager, "splash-shader", 5000.0f);
     scenemanager->PushScene( ss );
 
 
     TextNode tn( fontmanager );
     tn.Create("Ubuntu Mono", 1.0f, 20.0, 580.0, "Frame time:");
-    tn.AttachShader( sm, "font-shader" );
+    tn.AttachShader( shadermanager, "font-shader" );
+    tn.AttachTextureManager( texturemanager );
     tn.Show();
     TextNode tt( fontmanager );
     tt.Create("Ubuntu Light", 1.0f, 20.0f, 20.0f, "Testing Casper Steinmann Testing -");
-    tt.AttachShader( sm, "font-shader" );
+    tt.AttachShader( shadermanager, "font-shader" );
+    tt.AttachTextureManager( texturemanager );
     tt.Show();
 
     long total_time = 0L;
@@ -119,7 +122,7 @@ int main() {
         glClearColor( 0.0, 0.0, 0.0, 1.0 );
         glClear(GL_COLOR_BUFFER_BIT);
 
-        sm->SetProjectionMatrix( window->GetProjection() );
+        shadermanager->SetProjectionMatrix( window->GetProjection() );
 
         scenemanager->Draw();
 
@@ -135,7 +138,7 @@ int main() {
     scenemanager->Stop();
     fontmanager->Stop();
     controls->Stop();
-    sm->Stop();
+    shadermanager->Stop();
     window->Stop();
     settings->Stop();
 }

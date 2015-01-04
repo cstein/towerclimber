@@ -9,14 +9,9 @@
 #include "pugixml/src/pugixml.hpp"
 
 Font::Font() {
-    _textureid = 0;
 }
 
 Font::~Font() {
-    if(_textureid != 0) {
-        glDeleteTextures(1, &_textureid);
-        _textureid = 0;
-    }
 }
 
 void Font::SetSize(unsigned int size) {
@@ -28,12 +23,14 @@ void Font::SetFilename(std::string filename) {
     _imagefilename = "resources/graphics/fonts/" + filename + ".png";
 }
 
+void Font::SetTexturename(std::string texturename) {
+    _texturename = texturename;
+}
+
 bool Font::Load() {
     if ( LoadXML() ) {
-        if ( LoadPNG() ) {
-            CreateUVMap();
-            return CreateTexture();
-        };
+        CreateUVMap();
+        return true;
     }
     return false;
 }
@@ -73,16 +70,6 @@ bool Font::LoadXML() {
     return true;
 }
 
-bool Font::LoadPNG() {
-    CLOG(INFO, "Font") << "Loading '" << _imagefilename << "'.";
-    unsigned int error = lodepng::decode(_image, _imagewidth, _imageheight, _imagefilename.c_str());
-    if (error != 0) {
-        CLOG(ERROR, "Font") << lodepng_error_text(error);
-        return false;
-    }
-    return true;
-}
-
 unsigned int Font::GetSize() {
     return _size;
 }
@@ -95,32 +82,6 @@ CharacterRect* Font::GetCharRect(std::string character) {
         CLOG(ERROR, "Font") << "Rect for character '" << character << "' not found.";
         return nullptr;
     }
-}
-
-bool Font::CreateTexture() {
-    glGenTextures(1, &_textureid);
-    glBindTexture(GL_TEXTURE_2D, _textureid);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _imagewidth, _imageheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, &_image[0]);
-    // unbind the texture for now
-    glBindTexture(GL_TEXTURE_2D, 0);
-    return true;
-}
-
-bool Font::BindTexture() {
-    if (_textureid != 0) {
-        glBindTexture(GL_TEXTURE_2D, _textureid);
-        return true;
-    } else {
-        CLOG(ERROR, "Font") << "Could not bind texture.";
-        return false;
-    }
-}
-
-bool Font::UnbindTexture() {
-    glBindTexture(GL_TEXTURE_2D, 0);
-    return true;
 }
 
 void Font::CreateUVMap() {

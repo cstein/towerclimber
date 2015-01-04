@@ -4,11 +4,12 @@
 
 #include "easyloggingpp/src/easylogging++.h"
 
-FontManager::FontManager( SettingsManager* settings ) {
+FontManager::FontManager( SettingsManager* settings, TextureManager* textures ) {
     el::Logger* FontManagerLogger = el::Loggers::getLogger("FontManager");
     el::Logger* FontLogger = el::Loggers::getLogger("Font");
 
     _settings = settings;
+    _textures = textures;
 }
 
 FontManager::~FontManager() {
@@ -54,11 +55,23 @@ void FontManager::Start() {
                     font = _configuration.get<jsonxx::Object>( fontname );
                     int size = font.get<jsonxx::Number>("size");
                     std::string fname = font.get<jsonxx::String>("filename");
+                    std::string texname = font.get<jsonxx::String>("texture");
                     _fonts[fontname] = Font( );
                     _fonts[fontname].SetFilename( fname );
                     _fonts[fontname].SetSize( size );
-                    if (!_fonts[fontname].Load()) {
-                        CLOG(ERROR, "FontManager") << "Error loading font.";
+                    _fonts[fontname].SetTexturename( texname );
+
+                    if (_textures->HasTexture( texname )) {
+                        Texture* texture = _textures->GetTexture( texname );
+                        _fonts[fontname].SetWidth( texture->GetWidth() );
+                        _fonts[fontname].SetHeight( texture->GetHeight() );
+
+                        if (!_fonts[fontname].Load()) {
+                            CLOG(ERROR, "FontManager") << "Error loading font.";
+                            _fonts.erase(fontname);
+                        }
+                    } else {
+                        CLOG(ERROR, "FontManager") << "Could not get texture '" << texname << "'.";
                         _fonts.erase(fontname);
                     }
                 } else {
