@@ -33,6 +33,10 @@ public:
     ~Font();
     void SetSize(unsigned int value);
     void SetFilename(std::string filename);
+    void SetTexturename(std::string texturename);
+    std::string GetTextureName() { return _texturename; }
+    void SetHeight( unsigned int value ) { _imageheight = value; }
+    void SetWidth( unsigned int value ) { _imagewidth = value; }
 
     // Loads the XML and PNG data into the font.
     bool Load();
@@ -40,11 +44,10 @@ public:
     CharacterRect* GetCharRect(std::string character);
     CharacterUV* GetCharUV(std::string character);
     unsigned int GetSize();
-    bool BindTexture();
-    bool UnbindTexture();
 private:
     std::string _settingsfilename;
     std::string _imagefilename;
+    std::string _texturename;
 
     // size of the font
     unsigned int _size;
@@ -55,16 +58,10 @@ private:
 
     unsigned int _imagewidth;
     unsigned int _imageheight;
-    std::vector<unsigned char> _image;
-
-    GLuint _textureid;
 
     // Loads the font .xml configuration file with character rectangles.
     bool LoadXML();
-    // Loads the PNG image
-    bool LoadPNG();
-    // Creates the OpenGL Texture
-    bool CreateTexture();
+    //
     // Creates the UV map
     void CreateUVMap();
 };

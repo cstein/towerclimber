@@ -1,5 +1,5 @@
 {
-    "textures": ["SPLASH_WELOGO_01", "FONT_UBUNTU_MONO_BOLD_20", "FONT_LIBERATION_MONO_REGULAR_10", "FONT_UBUNTU LIGHT_REGULAR_10"],
+    "textures": ["SPLASH_WELOGO_01", "FONT_UBUNTU_MONO_BOLD_20", "FONT_LIBERATION_MONO_REGULAR_10", "FONT_UBUNTU_LIGHT_REGULAR_10"],
     "SPLASH_WELOGO_01": {
         "filename": "welogo.png"
     },
@@ -9,7 +9,7 @@
     "FONT_LIBERATION_MONO_REGULAR_10": {
         "filename": "fonts/liberation_mono_regular_10.png"
     },
-    "FONT_UBUNTU LIGHT_REGULAR_10": {
+    "FONT_UBUNTU_LIGHT_REGULAR_10": {
         "filename": "fonts/ubuntu_light_10.png"
     }
 }

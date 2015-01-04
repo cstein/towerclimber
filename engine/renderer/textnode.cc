@@ -25,7 +25,7 @@ void TextNode::OnDraw() {
 
     _shadermanager->BindShader( _shadername );
 
-    _font->BindTexture();
+    _texturemanager->BindTexture( _font->GetTextureName() );
 
     if (_vao != 0) {
         glBindVertexArray( _vao );
