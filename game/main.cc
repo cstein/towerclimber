@@ -53,13 +53,13 @@ int main() {
 
     TextureManager* texturemanager = new TextureManager( settings );
     texturemanager->Start();
-    texturemanager->LoadTexture("welogo");
-    texturemanager->LoadTexture("testtexture");
+    //texturemanager->LoadTexture("welogo");
+    //texturemanager->LoadTexture("testtexture");
 
-    SplashScene* s2 = new SplashScene(texturemanager, "testtexture", sm, "splash-shader", 5000.0f);
-    scenemanager->PushScene( s2 );
+    //SplashScene* s2 = new SplashScene(texturemanager, "testtexture", sm, "splash-shader", 5000.0f);
+    //scenemanager->PushScene( s2 );
 
-    SplashScene* ss = new SplashScene(texturemanager, "welogo", sm, "splash-shader", 5000.0f);
+    SplashScene* ss = new SplashScene(texturemanager, "SPLASH_WELOGO_01", sm, "splash-shader", 5000.0f);
     scenemanager->PushScene( ss );
 
 

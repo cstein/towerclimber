@@ -17,7 +17,7 @@ void Texture::Bind() {
 
     if( !IsBound() ) {
         glBindTexture(GL_TEXTURE_2D, _id);
-        _isbound = true;
+        //_isbound = true;
     }
 }
 

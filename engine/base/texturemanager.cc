@@ -34,7 +34,9 @@ void TextureManager::Start() {
 
     std::ifstream textureconf;
     std::stringstream buffer;
+    std::string texturename;
     jsonxx::Array textures;
+    jsonxx::Object texture;
 
     textureconf.open( conffilename );
     if( textureconf.is_open() ) {
@@ -43,6 +45,27 @@ void TextureManager::Start() {
         if (_configuration.parse( buffer )) {
             textures = _configuration.get<jsonxx::Array>("textures");
             CLOG(INFO, _name) << "Found " << textures.size() << " texture(s).";
+
+            for(unsigned int i=0; i < textures.size(); i++) {
+                texturename = textures.get<jsonxx::String>(i);
+                if (_configuration.has<jsonxx::Object>( texturename )) {
+                    CLOG(INFO, _name) << "Loading '" << texturename << "'.";
+                    texture = _configuration.get<jsonxx::Object>( texturename );
+
+                    std::string filename = texture.get<jsonxx::String>("filename");
+                    _textures2[ texturename ] = Texture();
+                    _textures2[ texturename ].SetName( texturename );
+                    _textures2[ texturename ].SetFilename( _confpath + "/" + filename );
+
+                    // It might not be too wise to load everything here
+                    if (!_textures2[ texturename ].Load()) {
+                        CLOG(ERROR, _name) << "Error loading font.";
+                        _textures2.erase( texturename );
+                    }
+                } else {
+                    CLOG(ERROR, _name) << "Could not find texture: '" << texturename << "' in .json file.";
+                }
+            }
         } else {
             CLOG(ERROR, _name) << "Could not parse '" << conffilename << "'.";
         }
@@ -56,7 +79,13 @@ void TextureManager::Stop() {
 }
 
 bool TextureManager::HasTexture( std::string texturename ) {
-    return GetTextureID( texturename ) != 0;
+    std::map<std::string, Texture>::iterator it = _textures2.find( texturename );
+    if (it != _textures2.end()) {
+        return true;
+    } else {
+        return false;
+    }
+
 }
 
 bool TextureManager::LoadTexture( std::string texturename ) {
@@ -71,10 +100,7 @@ bool TextureManager::LoadTexture( std::string texturename ) {
 
 void TextureManager::BindTexture(std::string texturename) {
     if (HasTexture(texturename)) {
-        if (_boundtexture != _textures[texturename]) {
-            _boundtexture = _textures[texturename];
-        }
-        glBindTexture(GL_TEXTURE_2D, _boundtexture);
+        _textures2[ texturename ].Bind();
     }
 }
 

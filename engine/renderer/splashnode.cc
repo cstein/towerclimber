@@ -21,7 +21,6 @@ void SplashNode::OnDraw() {
         return;
 
     _shadermanager->BindShader( _shadername );
-
     _texturemanager->BindTexture( _texturename );
 
     if (_vao != 0) {

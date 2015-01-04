@@ -6,8 +6,9 @@
 
 #include <GL/glew.h>
 
-#include "manager.h"
+#include "base/manager.h"
 #include "base/settingsmanager.h"
+#include "renderer/texture.h"
 
 #include "jsonxx/jsonxx.h"
 
@@ -41,6 +42,7 @@ private:
     GLuint GetTextureID( std::string texturename );
 
     jsonxx::Object _configuration;
+    std::map<std::string, Texture> _textures2;
 };
 
 #endif

@@ -19,7 +19,7 @@ SplashScene::SplashScene(TextureManager* texturemanager, std::string texturename
     _currentstep = 0;
 
 
-    texturemanager->LoadTexture( texturename );
+    // texturemanager->LoadTexture( texturename );
 
     /*
      * The SplashScene contains a single basic object and a SplashNode attached to that.
