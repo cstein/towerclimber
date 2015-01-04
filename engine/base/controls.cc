@@ -4,6 +4,10 @@ Controls::Controls() {
 
 }
 
+Controls::~Controls() {
+
+}
+
 void Controls::Start() {
 }
 

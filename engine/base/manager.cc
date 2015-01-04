@@ -2,3 +2,7 @@
 
 Manager::Manager() {
 }
+
+Manager::~Manager() {
+
+}

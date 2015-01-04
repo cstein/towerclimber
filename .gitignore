@@ -35,3 +35,23 @@ CMakeFiles
 Makefile
 cmake_install.cmake
 install_manifest.txt
+
+# FOR PROJECT
+#
+# generated files
+engine/base/faders.h
+
+# 3rd-party folders
+3rd-party/Eigen/
+3rd-party/bullet3/
+3rd-party/easyloggingpp/
+3rd-party/gtest-1.7.0/
+3rd-party/jsonxx/
+3rd-party/lodepng/
+3rd-party/pugixml/
+
+# build folders
+build*
+
+# python compiled files
+*.pyc

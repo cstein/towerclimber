@@ -1,13 +1,21 @@
 {
-    "fonts": ["Ubuntu Mono", "Liberation Mono"],
+    "fonts": ["Ubuntu Mono", "Ubuntu Light", "Liberation Mono"],
     "Ubuntu Mono": {
         "size": 20,
         "weight": "bold",
-        "filename": "ubuntu_mono_bold_20"
+        "filename": "ubuntu_mono_bold_20",
+        "texture": "FONT_UBUNTU_MONO_BOLD_20"
+    },
+    "Ubuntu Light": {
+        "size": 10,
+        "weight": "regular",
+        "filename": "ubuntu_light_10",
+        "texture": "FONT_UBUNTU_LIGHT_REGULAR_10"
     },
     "Liberation Mono": {
         "size": 10,
         "weight": "regular",
-        "filename": "liberation_mono_regular_10"
+        "filename": "liberation_mono_regular_10",
+        "texture": "FONT_LIBERATION_MONO_REGULAR_10"
     }
 }

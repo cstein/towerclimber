@@ -23,9 +23,14 @@ void Font::SetFilename(std::string filename) {
     _imagefilename = "resources/graphics/fonts/" + filename + ".png";
 }
 
-bool Font::LoadTextureAtlas() {
+void Font::SetTexturename(std::string texturename) {
+    _texturename = texturename;
+}
+
+bool Font::Load() {
     if ( LoadXML() ) {
-        return LoadPNG();
+        CreateUVMap();
+        return true;
     }
     return false;
 }
@@ -33,6 +38,7 @@ bool Font::LoadXML() {
     CLOG(INFO, "Font") << "Loading '" << _settingsfilename << "'.";
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(_settingsfilename.c_str());
+
     if (result) {
         pugi::xml_node font_node = doc.child("Font");
         for( pugi::xml_node char_node = font_node.child("Char");
@@ -44,17 +50,18 @@ bool Font::LoadXML() {
             std::string offset = char_node.attribute("offset").value();
 
             _charmap[character] = CharacterRect();
-            std::stringstream stream;
+            std::stringstream rectstream;
 
-            stream.str( rect );
-            stream >> _charmap[character].x;
-            stream >> _charmap[character].y;
-            stream >> _charmap[character].w;
-            stream >> _charmap[character].h;
+            rectstream.str( rect );
+            rectstream >> _charmap[character].x;
+            rectstream >> _charmap[character].y;
+            rectstream >> _charmap[character].w;
+            rectstream >> _charmap[character].h;
 
-            stream.str( offset );
-            stream >> _charmap[character].ox;
-            stream >> _charmap[character].oy;
+            std::stringstream offsetstream;
+            offsetstream.str( offset );
+            offsetstream >> _charmap[character].ox;
+            offsetstream >> _charmap[character].oy;
         }
     } else {
         CLOG(ERROR, "Font") << result.description();
@@ -63,12 +70,48 @@ bool Font::LoadXML() {
     return true;
 }
 
-bool Font::LoadPNG() {
-    CLOG(INFO, "Font") << "Loading '" << _imagefilename << "'.";
-    unsigned int error = lodepng::decode(_image, _imagewidth, _imageheight, _imagefilename.c_str());
-    if (error != 0) {
-        CLOG(ERROR, "Font") << lodepng_error_text(error);
-        return false;
+unsigned int Font::GetSize() {
+    return _size;
+}
+
+CharacterRect* Font::GetCharRect(std::string character) {
+    std::map<std::string, CharacterRect>::iterator it = _charmap.find( character );
+    if (it != _charmap.end()) {
+        return &it->second;
+    } else {
+        CLOG(ERROR, "Font") << "Rect for character '" << character << "' not found.";
+        return nullptr;
     }
-    return true;
+}
+
+void Font::CreateUVMap() {
+    // the Font UV map is actually rather elegant. Each char is defined
+    // in a rectangle which is a fraction of the total texture.
+    float width = (float)_imagewidth;
+    float height = (float)_imageheight;
+    float x, y, w, h;
+    std::map<std::string, CharacterRect>::iterator it;
+    for( it = _charmap.begin(); it != _charmap.end(); it++ ) {
+        CharacterRect* cr = &it->second;
+        x = (float)cr->x / width;
+        y = (float)cr->y / height;
+        w = ((float)cr->x + (float)cr->w) / width;
+        h = ((float)cr->y + (float)cr->h) / height;
+        _uvmap[ it->first ] = CharacterUV();
+        _uvmap[ it->first ].u = x;
+        _uvmap[ it->first ].v = h;
+        _uvmap[ it->first ].s = w;
+        _uvmap[ it->first ].t = y;
+        //CLOG(INFO, "Font") << "CMAP: '" << it->first << "' " << x << ", " << y << ", " << w << ", " << h;
+    }
+}
+
+CharacterUV* Font::GetCharUV(std::string character) {
+    std::map<std::string, CharacterUV>::iterator it = _uvmap.find( character );
+    if (it != _uvmap.end()) {
+        return &it->second;
+    } else {
+        CLOG(ERROR, "Font") << "UV map for character '" << character << "' not found.";
+        return nullptr;
+    }
 }

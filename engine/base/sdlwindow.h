@@ -8,6 +8,7 @@
 class SDLWindow: public Manager {
 public:
     SDLWindow();
+    ~SDLWindow();
     virtual void Start();
     virtual void Start(int width, int height);
     virtual void Stop();
@@ -19,7 +20,7 @@ protected:
     int _height;
     SDL_Window* window;
 private:
-    SDL_Surface* screen;
+    SDL_Renderer* renderer;
 };
 
 #endif

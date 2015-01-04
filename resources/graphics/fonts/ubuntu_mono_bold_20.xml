@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Font family="Ubuntu Mono" style="Bold" size="20" height="27">
- <Char width="14" rect="1 20 2 2" code=" " offset="-1 22"/>
+ <Char width="14" rect="1 20 2 2" code=" " offset="13 22"/>
  <Char width="14" rect="4 3 6 19" code="!" offset="4 5"/>
  <Char width="14" rect="11 2 10 10" code="&quot;" offset="1 4"/>
  <Char width="14" rect="22 3 16 19" code="#" offset="-1 5"/>
