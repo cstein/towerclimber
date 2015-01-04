@@ -10,10 +10,13 @@ TEST(Renderer_TextNode, coordinates) {
     GLWindow window = GLWindow();
     window.Start();
 
-    FontManager* f = new FontManager();
+    SettingsManager* sm = new SettingsManager();
+    sm->Start();
+
+    FontManager* f = new FontManager( sm );
     f->Start();
 
-    ShaderManager* s = new ShaderManager();
+    ShaderManager* s = new ShaderManager( sm );
     s->Start();
 
     TextNode* t = new TextNode( f );
@@ -27,6 +30,8 @@ TEST(Renderer_TextNode, coordinates) {
     delete s;
     f->Stop();
     delete f;
+    sm->Stop();
+    delete sm;
 }
 
 

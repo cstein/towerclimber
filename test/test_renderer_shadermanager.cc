@@ -1,4 +1,5 @@
 #include "base/glwindow.h"
+#include "base/settingsmanager.h"
 #include "renderer/shadermanager.h"
 #include "gtest/gtest.h"
 #include "easyloggingpp/src/easylogging++.h"
@@ -8,19 +9,25 @@ _INITIALIZE_EASYLOGGINGPP
 class ShaderManagerTest : public ::testing::Test {
 protected:
     ShaderManager* s;
+    SettingsManager* sm;
+
     ShaderManagerTest() {
         GLWindow window = GLWindow();
         window.Start();
     }
 
     void SetUp() {
-        s = new ShaderManager();
+        sm = new SettingsManager();
+        sm->Start();
+        s = new ShaderManager( sm );
         s->Start();
     }
 
     void TearDown() {
         s->Stop();
         delete s;
+        sm->Stop();
+        delete sm;
     }
 
 };

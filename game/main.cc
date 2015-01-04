@@ -1,6 +1,8 @@
 #include "base/glwindow.h"
 #include "base/controls.h"
 #include "base/scenemanager.h"
+#include "base/settingsmanager.h"
+
 #include "fonts/fontmanager.h"
 
 #include "renderer/shader.h"
@@ -29,16 +31,19 @@ long get_time_ns() {
 int main() {
     bool running = true;
 
+    SettingsManager* settings = new SettingsManager();
+    settings->Start();
+
     GLWindow* window = new GLWindow();
     window->Start(800, 600);
 
-    ShaderManager* sm = new ShaderManager();
+    ShaderManager* sm = new ShaderManager( settings );
     sm->Start();
 
     Controls* controls = new Controls();
     controls->Start();
 
-    FontManager* fontmanager = new FontManager();
+    FontManager* fontmanager = new FontManager( settings );
     fontmanager->Start();
 
     // start engine subsystems
@@ -46,15 +51,15 @@ int main() {
     SceneManager* scenemanager = new SceneManager();
     scenemanager->Start();
 
-    TextureManager* texturemanager = new TextureManager();
+    TextureManager* texturemanager = new TextureManager( settings );
     texturemanager->Start();
-    texturemanager->LoadTexture("welogo");
-    texturemanager->LoadTexture("testtexture");
+    //texturemanager->LoadTexture("welogo");
+    //texturemanager->LoadTexture("testtexture");
 
-    SplashScene* s2 = new SplashScene(texturemanager, "testtexture", sm, "splash-shader", 5000.0f);
-    scenemanager->PushScene( s2 );
+    //SplashScene* s2 = new SplashScene(texturemanager, "testtexture", sm, "splash-shader", 5000.0f);
+    //scenemanager->PushScene( s2 );
 
-    SplashScene* ss = new SplashScene(texturemanager, "welogo", sm, "splash-shader", 5000.0f);
+    SplashScene* ss = new SplashScene(texturemanager, "SPLASH_WELOGO_01", sm, "splash-shader", 5000.0f);
     scenemanager->PushScene( ss );
 
 
@@ -132,5 +137,5 @@ int main() {
     controls->Stop();
     sm->Stop();
     window->Stop();
-
+    settings->Stop();
 }

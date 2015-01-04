@@ -6,7 +6,11 @@
 
 #include <GL/glew.h>
 
-#include "manager.h"
+#include "base/manager.h"
+#include "base/settingsmanager.h"
+#include "renderer/texture.h"
+
+#include "jsonxx/jsonxx.h"
 
 /*
  * The TextureManager is loading and binding textures.
@@ -14,7 +18,7 @@
 
 class TextureManager : public Manager {
 public:
-    TextureManager();
+    TextureManager( SettingsManager* settings );
     ~TextureManager();
     virtual void Start();
     virtual void Stop();
@@ -25,6 +29,8 @@ public:
     GLuint GetBoundTexture();
     unsigned int GetNumLoadedTextures() { return _textures.size(); }
 private:
+    SettingsManager* _settings;
+
     GLuint _boundtexture;
     std::map<std::string, GLuint> _textures;
 
@@ -34,6 +40,9 @@ private:
     bool LoadPNG( std::string texturename );
     bool CreateTexture( std::string texturename );
     GLuint GetTextureID( std::string texturename );
+
+    jsonxx::Object _configuration;
+    std::map<std::string, Texture> _textures2;
 };
 
 #endif
